@@ -6,7 +6,7 @@ const FondoAnimado = () => {
 
   useEffect(() => {
     const lienzo = canvasRef.current;
-    const contexto = lienzo.getContext("3d");
+    const contexto = lienzo.getContext("2d");
     let idAnimacion;
 
     const redimensionarLienzo = () => {
@@ -15,14 +15,14 @@ const FondoAnimado = () => {
     };
 
     const crearParticulas = () => {
-      const cantidadParticulas = 150; // Aumenté el número de partículas normales
+      const cantidadParticulas = 170; // Aumenté el número de partículas normales
       particulas.current = [];
 
       for (let i = 0; i < cantidadParticulas; i++) {
         particulas.current.push({
           x: Math.random() * lienzo.width,
           y: Math.random() * lienzo.height,
-          tamano: Math.random() * 7 + 2, // Tamaño un poco más grande
+          tamano: Math.random() * 5 + 2, // Tamaño un poco más grande
           velocidadX: (Math.random() * 3 - 1.5) * 1.5,
           velocidadY: (Math.random() * 3 - 1.5) * 1.5,
           opacidad: Math.random() * 0.6 + 0.3,
@@ -110,7 +110,7 @@ const FondoAnimado = () => {
         height: "100%",
         zIndex: 0,
         pointerEvents: "none",
-        background: "linear-gradient(135deg,rgb(0, 0, 0) 0%,rgb(25, 26, 27) 100%)" // Fondo oscuro degradado
+        background: "linear-gradient(135deg,rgb(0, 0, 0) 0%,rgb(10, 10, 10) 100%)" // Fondo oscuro degradado
       }}
     />
   );
