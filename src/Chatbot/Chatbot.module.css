@@ -72,21 +72,10 @@
   content: '';
   position: absolute;
   top: 0;
-  left: -100%;
+  left: 0;
   width: 100%;
   height: 2px;
-  background: linear-gradient(90deg, 
-    transparent, 
-    #00fff7, /* cyan */
-    #0080ff, /* azul electrico */
-    #00ff80, /* verde lima */
-    #ffff00, /* amarillo */
-    #ff8000, /* naranja neón */
-    #8000ff, /* violeta neón */
-    #00ff40, /* verde neón */
-    transparent
-  );
-  animation: neonBorder 3s linear infinite;
+  background: #00fff7; /* Solo un color sólido, sin gradiente */
 }
 
 .headerLeftContent {
@@ -284,21 +273,10 @@
   content: '';
   position: absolute;
   bottom: 0;
-  left: -100%;
+  left: 0;
   width: 100%;
   height: 2px;
-  background: linear-gradient(90deg, 
-    transparent, 
-    #00fff7, /* cyan */
-    #0080ff, /* azul electrico */
-    #00ff80, /* verde lima */
-    #ffff00, /* amarillo */
-    #ff8000, /* naranja neón */
-    #8000ff, /* violeta neón */
-    #00ff40, /* verde neón */
-    transparent
-  );
-  animation: neonBorder 3s linear infinite;
+  background: #00fff7; /* Solo un color sólido, sin gradiente */
 }
 
 .messageInput {
@@ -402,15 +380,6 @@
     box-shadow: 0 0 30px #00fff7,
                 0 0 60px #0080ff,
                 0 0 90px #00ff80;
-  }
-}
-
-@keyframes neonBorder {
-  0% {
-    left: -100%;
-  }
-  100% {
-    left: 100%;
   }
 }
 
