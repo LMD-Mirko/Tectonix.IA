@@ -22,7 +22,7 @@ const FondoAnimado = () => {
         particulas.current.push({
           x: Math.random() * lienzo.width,
           y: Math.random() * lienzo.height,
-          tamano: Math.random() * 5 + 2, // Tamaño un poco más grande
+          tamano: Math.random() * 5 + 3, // Tamaño un poco más grande
           velocidadX: (Math.random() * 3 - 1.5) * 1.5,
           velocidadY: (Math.random() * 3 - 1.5) * 1.5,
           opacidad: Math.random() * 0.6 + 0.3,

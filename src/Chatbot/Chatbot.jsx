@@ -194,15 +194,14 @@ export default function SismoBot() {
   };
 
   return (
-    
-
     <Box className={estilo.chatContainer}>
-          <div className={estilo.errorTag}>REGRESAR</div>
+      <button className={estilo.botonRegresar}>REGRESAR</button>
       <div className={estilo.seismicOverlay}></div>
       <div className={estilo.gridBackground}></div>
       <SeismicBackground />
 
-      <Container maxWidth="lg" sx={{ pt: 2, position: 'relative', zIndex: 1 }}>
+      {/* Centrado absoluto del chat */}
+      <Box sx={{ width: '100vw', minHeight: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'relative', zIndex: 1 }}>
         <Paper className={estilo.chatPaper} elevation={3}>
           {/* Header */}
           <Box className={estilo.chatHeader}>
@@ -308,7 +307,7 @@ export default function SismoBot() {
             </Button>
           </Box>
         </Paper>
-      </Container>
+      </Box>
     </Box>
   );
 }
