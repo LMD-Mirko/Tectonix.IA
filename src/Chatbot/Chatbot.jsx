@@ -14,7 +14,7 @@ export default function SismoBot() {
   const [mensajes, setMensajes] = useState([
     {
       tipo: 'ia',
-      texto: '¡Hola! Soy SismoBot, tu asistente virtual para información sobre sismos y terremotos. ¿En qué puedo ayudarte?',
+      texto: '¡Hola! Soy TectonixBot, tu asistente virtual para información sobre sismos y terremotos. ¿En qué puedo ayudarte?',
       hora: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     },
   ]);
@@ -179,10 +179,10 @@ export default function SismoBot() {
   };
 
   const sugerencias = [
-    "¿Qué es la escala de Richter?",
-    "Zonas sísmicas en mi país",
+    "Zonas sísmicas en Perú",
     "Preparación ante terremotos",
-    "Últimos sismos registrados",
+    "Últimos sismos registrados en Perú",
+    "¿Cómo se forman los terremotos?",
     "¿Cómo actuar durante un terremoto?"
   ];
 
@@ -211,7 +211,7 @@ export default function SismoBot() {
               </Avatar>
               <Box>
                 <Typography variant="h6" component="h1" className={estilo.headerTitle}>
-                  SismoBot
+                  TectonixBot
                 </Typography>
                 <Typography variant="body2" className={estilo.headerSubtitle}>
                   Sistema de monitoreo sísmico
@@ -237,7 +237,7 @@ export default function SismoBot() {
             </Box>
           </Box>
 
-          {/* Chat Messages */}
+          {/* Chat Mensages*/}
           <Box
             ref={chatBodyRef}
             className={estilo.chatBody}
@@ -267,7 +267,7 @@ export default function SismoBot() {
             )}
           </Box>
 
-          {/* Suggestions */}
+          {   }
           <Box className={estilo.suggestionsArea}>
             <Box className={estilo.suggestionChipsContainer}>
               {sugerencias.map((sugerencia, index) => (
