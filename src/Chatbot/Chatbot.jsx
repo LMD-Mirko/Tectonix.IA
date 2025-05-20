@@ -7,7 +7,7 @@ import axios from 'axios';
 import estilo from './Chatbot.module.css';
 import SeismicBackground from '../movimiento/AnimatedBackground';
 
-const API_URL = import.meta.env.VITE_API_URL || 'https://apiinteligencia-artificial-production.up.railway.app/api';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
 
 export default function SismoBot() {
   const [mensajeUsuario, setMensajeUsuario] = useState('');
