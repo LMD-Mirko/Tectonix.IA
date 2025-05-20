@@ -2,6 +2,7 @@ import React from "react";
 import { ChartLine, MapPin, Brain, Shield, Database, Globe } from "phosphor-react";
 import Nav from "../componentes/Nav";
 import HeroCarousel from "../componentes/HeroCarousel";
+import investigacionImg from "../inicio/img/investigacion.jpeg";
 import styles from "./inicio.module.css";
 
 const services = [
@@ -104,7 +105,7 @@ export default function Inicio() {
             </p>
           </div>
           <div className={styles["about-image"]}>
-            <img src="/images/about-image.jpg" alt="Tectonix IA Team" />
+            <img src={investigacionImg} alt="Tectonix IA Team" />
           </div>
         </div>
       </section>

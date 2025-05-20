@@ -1,26 +1,32 @@
 import React, { useState, useEffect } from "react";
 import { CaretLeft, CaretRight } from "phosphor-react";
 import styles from "./HeroCarousel.module.css";
+import mapaImg from "../inicio/img/mappa.png";
+import mapaImg2 from "../inicio/img/placaas.jpg";
+import mapaImg3 from "../inicio/img/placaasd.jpg";
 
 const slides = [
   {
     title: "Predicción Sísmica",
     subtitle: "Anticípate a los sismos con Inteligencia Artificial",
-    description: "Nuestro sistema analiza miles de datos geofísicos para ofrecerte predicciones más confiables.",
-    gradient: "linear-gradient(45deg, #000000, #2563eb)"
+    description:
+      "Nuestro sistema analiza miles de datos geofísicos para ofrecerte predicciones más confiables.",
+    image: mapaImg,
   },
   {
     title: "Análisis en Tiempo Real",
     subtitle: "Monitoreo continuo de actividad sísmica",
-    description: "Visualiza y analiza la actividad sísmica de tu región en tiempo real con mapas interactivos.",
-    gradient: "linear-gradient(45deg, #000000, #1a1a1a)"
+    description:
+      "Visualiza y analiza la actividad sísmica de tu región en tiempo real con mapas interactivos.",
+    image: mapaImg2,
   },
   {
     title: "Tecnología Avanzada",
     subtitle: "Machine Learning para la prevención",
-    description: "Utilizamos algoritmos de última generación para procesar y analizar datos sísmicos.",
-    gradient: "linear-gradient(45deg, #000000, #4b5563)"
-  }
+    description:
+      "Utilizamos algoritmos de última generación para procesar y analizar datos sísmicos.",
+    image: mapaImg3,
+  },
 ];
 
 const HeroCarousel = () => {
@@ -50,8 +56,14 @@ const HeroCarousel = () => {
             className={`${styles.slide} ${
               index === currentSlide ? styles.active : ""
             }`}
-            style={{ background: slide.gradient }}
           >
+            <div className={styles.slideBackground}>
+              <img
+                src={slide.image}
+                alt={slide.title}
+                className={styles.slideImage}
+              />
+            </div>
             <div className={styles.slideContent}>
               <h1 className={styles.title}>{slide.title}</h1>
               <h2 className={styles.subtitle}>{slide.subtitle}</h2>
@@ -86,4 +98,4 @@ const HeroCarousel = () => {
   );
 };
 
-export default HeroCarousel; 
+export default HeroCarousel;
