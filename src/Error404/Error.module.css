@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+.errorPage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100vw;
+  font-family: 'Poppins', sans-serif;
+  position: relative;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.3); 
+}
+
+.errorTag {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background-color: #313030;
+  color: white;
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 0.9rem;
+  z-index: 10;
+}
+
+.errorContent {
+  display: flex;
+  align-items: center;
+  max-width: 1200px;
+  width: 100%;
+  z-index: 10;
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.9); 
+  border-radius: 15px;
+  padding: 40px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.errorImage {
+  flex: 1;
+  margin-right: 4rem;
+}
+
+.errorImage img {
+  max-width: 100%;
+  height: auto;
+  max-height: 600px;
+  filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.3));
+}
+
+.errorText {
+  flex: 1;
+}
+
+.errorText h1 {
+  font-size: 72px;
+  font-weight: 700;
+  margin: 0;
+  color: #000000;
+  line-height: 1.2;
+}
+
+.errorText h1:first-child {
+  font-weight: 500;
+}
+
+.errorText h2 {
+  font-size: 36px;
+  font-weight: 500;
+  margin: 10px 0 20px 0;
+  color: #000000;
+}
+
+.errorText p {
+  font-size: 18px;
+  color: #333;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+.backButton {
+  height: 50px;
+  padding: 0 40px;
+  font-size: 16px;
+  font-weight: 500;
+  background-color: #000 !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 4px !important;
+  cursor: pointer;
+  transition: all 0.3s !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+}
+
+.backButton:hover {
+  background-color: #333 !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Estilos responsivos */
+@media (max-width: 992px) {
+  .errorContent {
+    flex-direction: column;
+    text-align: center;
+    padding: 30px;
+  }
+  
+  .errorImage {
+    margin-right: 0;
+    margin-bottom: 30px;
+  }
+  
+  .errorText h1 {
+    font-size: 60px;
+  }
+  
+  .errorText h2 {
+    font-size: 30px;
+  }
+}
+
+@media (max-width: 576px) {
+  .errorText h1 {
+    font-size: 48px;
+  }
+  
+  .errorText h2 {
+    font-size: 24px;
+  }
+  
+  .errorText p {
+    font-size: 16px;
+  }
+  
+  .backButton {
+    padding: 0 30px;
+    height: 45px;
+  }
+}
