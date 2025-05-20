@@ -1,0 +1,179 @@
+/* ------------------- Estilos Principales ------------------- */
+
+
+.estadisticas-main {
+  max-width: 200px;
+  margin: 90px;
+  background: #a79f9f;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  
+}
+
+.filtros {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.filtros-header {
+  font-weight: 10;
+  font-size: 1.25rem;
+  color: #000;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 2px solid #ccc;
+  padding-bottom: 6px;
+}
+
+.icono {
+  font-size: 28px;
+  color: #555;
+}
+
+/* ------------------- Etiquetas y Campos ------------------- */
+label {
+  font-weight: 100;
+  color: #222;
+  margin-bottom: 4px;
+  display: block;
+}
+
+select,
+input[type="number"] {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1.5px solid #bbb;
+  border-radius: 8px;
+  background: #fff;
+  color: #000;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+select:focus,
+input[type="number"]:focus {
+  border-color: #000;
+}
+
+/* ------------------- Inputs Edad ------------------- */
+.edad-inputs {
+  display: flex;
+  gap: 6px;
+}
+
+.edad-inputs input {
+  width: 48%;
+}
+
+/* ------------------- Botón ------------------- */
+button {
+  width: 100%;
+  padding: 10px 0;
+  border-radius: 10px;
+  border: none;
+  background-color: #000;
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #333;
+}
+
+/* ------------------- Gráficos ------------------- */
+.statistics {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 100px;
+  justify-content: flex-start;
+}
+
+.lineChart, .pieChart, .barChart {
+  border: 2px solid #000;
+  border-radius: 15px;
+  margin-top: 90px;
+}
+
+.barChart {
+  width: 700px;
+  height: 250px;
+  margin-top: -70px;
+  border-radius: 8px;
+}
+
+.lineChart img,
+.pieChart img,
+.barChart img{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+/* ------------------- Barras Superiores e Informativas ------------------- */
+.top-bar,
+.extra-section,
+.info-box,
+.new-box {
+  width: 100%;
+  height: 50px;
+  background-color: #f0f0f0;
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.new-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 20px;
+  align-items: center;
+}
+
+/* Sección contenedora de fotos */
+.new-section {
+    display: flex;
+    justify-content: center;
+    gap: 80px;
+    margin: 10px auto;
+    flex-wrap: wrap;
+    padding: 0px;
+}
+
+/* Foto 1 */
+.foto1 {
+    width: 450px;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-right: 600px; /* mueve a la izquierda */
+    border: 2px solid #000000; /* Estilo extra para diferenciar */
+}
+
+/* Foto 2 */
+.foto2 {
+    width: 300px;
+    height: auto;
+    position: absolute;
+    border-radius: 12px;
+    left: 500px;  /* mueve a la derecha */
+    top: 1135px;    /* mueve hacia abajo */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 2px solid #000000; /* Estilo diferente */
+    transform: translate(280px, -385px); /* derecha (+X), arriba (-Y) */
+    
+}
