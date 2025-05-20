@@ -1,85 +1,210 @@
 import React from 'react';
-import styles from '../Mostrar_Estadisticas/estadistica.module.css';
+import { Line, Bar, Pie, Doughnut, Radar } from 'react-chartjs-2';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  BarElement,
+  ArcElement,
+  RadialLinearScale,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+import styles from './estadistica.module.css';
+
+
+// Register ChartJS components
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  BarElement,
+  ArcElement,
+  RadialLinearScale,
+  Title,
+  Tooltip,
+  Legend
+);
 
 function Estadistica() {
-    return (
-        <div>
-            <div className={styles['top-bar']}>Div en blanco - menu</div> {/* Div en blanco con texto */}
-            <div className="container">
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <main className={styles['estadisticas-main']}>
-                        <aside className={styles.filtros}>
-                            <div className={styles['filtros-header']}>
-                                <span className={styles.icono}>⏷</span> Filtrar
-                            </div>
+  // Sample data for charts
+  const lineChartData = {
+    labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun'],
+    datasets: [
+      {
+        label: 'Sismos por Mes',
+        data: [12, 19, 15, 25, 22, 30],
+        borderColor: '#000000',
+        backgroundColor: 'rgba(0, 0, 0, 0.1)',
+        tension: 0.4,
+      },
+    ],
+  };
 
-                            <div style={{ marginBottom: 12 }}>
-                                <label className={styles.label}>Zona Sísmica</label>
-                                <select className={styles.select}>
-                                    <option value="">Todas</option>
-                                    <option value="Costa">Costa</option>
-                                    <option value="Sierra">Sierra</option>
-                                    <option value="Selva">Selva</option>
-                                </select>
-                            </div>
+  const barChartData = {
+    labels: ['Costa', 'Sierra', 'Selva'],
+    datasets: [
+      {
+        label: 'Sismos por Región',
+        data: [45, 30, 25],
+        backgroundColor: [
+          'rgba(0, 0, 0, 0.8)',
+          'rgba(0, 0, 0, 0.6)',
+          'rgba(0, 0, 0, 0.4)',
+        ],
+      },
+    ],
+  };
 
-                            <div style={{ marginBottom: 12 }}>
-                                <label className={styles.label}>Profundidad (km)</label>
-                                <div className={styles['edad-inputs']}>
-                                    <input type="number" placeholder="Mín" min={0} />
-                                    <input type="number" placeholder="Máx" min={0} />
-                                </div>
-                            </div>
+  const pieChartData = {
+    labels: ['Leve', 'Moderado', 'Fuerte'],
+    datasets: [
+      {
+        data: [60, 30, 10],
+        backgroundColor: [
+          'rgba(0, 0, 0, 0.3)',
+          'rgba(0, 0, 0, 0.6)',
+          'rgba(0, 0, 0, 0.9)',
+        ],
+      },
+    ],
+  };
 
-                            <div style={{ marginBottom: 19 }}>
-                                <label className={styles.label}>Magnitud</label>
-                                <select className={styles.select}>
-                                    <option value="">Todos</option>
-                                    <option value="Leve">Pequeño</option>
-                                    <option value="Moderado">Mediano</option>
-                                    <option value="Fuerte">Grande</option>
-                                </select>
-                            </div>
+  const doughnutChartData = {
+    labels: ['Profundo', 'Medio', 'Superficial'],
+    datasets: [
+      {
+        data: [25, 45, 30],
+        backgroundColor: [
+          'rgba(0, 0, 0, 0.2)',
+          'rgba(0, 0, 0, 0.5)',
+          'rgba(0, 0, 0, 0.8)',
+        ],
+      },
+    ],
+  };
 
-                            <button className={styles.button}>Limpiar filtros</button>
-                        </aside>
-                    </main>
+  const radarChartData = {
+    labels: ['Magnitud', 'Profundidad', 'Frecuencia', 'Intensidad', 'Duración'],
+    datasets: [
+      {
+        label: 'Características del Sismo',
+        data: [65, 59, 90, 81, 56],
+        backgroundColor: 'rgba(0, 0, 0, 0.2)',
+        borderColor: '#000000',
+        borderWidth: 2,
+      },
+    ],
+  };
 
-                    <div className={styles.statistics}>
-                        <img
-                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2tEhzgE3fFQagyPg7B2fEVIDpqPyLJbe_Wg&s"
-                            alt="Line Chart"
-                            className={`${styles['statistic-image']} ${styles.lineChart}`}
-                        />
-                        <img
-                            src="https://tudashboard.com/wp-content/uploads/2022/02/Grafica-pie-v2-300x253.png"
-                            alt="Pie Chart"
-                            className={`${styles['statistic-image']} ${styles.pieChart}`}
-                        />
-                        <img
-                            src="https://www.slideteam.net/wp/wp-content/uploads/2023/04/Impulsores-de-aumento-de-la-eficiencia-con-grafico-de-barras-horizontales-2.png"
-                            alt="Bar Chart"
-                            className={`${styles['statistic-image']} ${styles.barChart}`}
-                        />
-                    </div>
-                </div>
-            </div>
+  return (
+    <>
 
-            {/* Sección de fotos */}
-            <div className={styles['new-section']}>
-                <img
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7DLiBJRTOvnKfjN3AaC2Z62Q3o8194rbGZQ&s"
-                    alt="Foto 1"
-                    className={styles['foto1']}
-                />
-                <img
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTQiHtbow0Wzzi89kv2CfFnxXUFKOb356i6w&s"
-                    alt="Foto 2"
-                    className={styles['foto2']}
-                />
-            </div>
+      <div className={styles.container}>
+        <div className={styles.header}>
+          <h1>Estadísticas de Sismos</h1>
         </div>
-    );
+        
+        <div className={styles.filters}>
+          <div className={styles.filterGroup}>
+            <label>Zona Sísmica</label>
+            <select>
+              <option value="">Todas</option>
+              <option value="Costa">Costa</option>
+              <option value="Sierra">Sierra</option>
+              <option value="Selva">Selva</option>
+            </select>
+          </div>
+
+          <div className={styles.filterGroup}>
+            <label>Profundidad (km)</label>
+            <div className={styles.rangeInputs}>
+              <input type="number" placeholder="Mín" min={0} />
+              <input type="number" placeholder="Máx" min={0} />
+            </div>
+          </div>
+
+          <div className={styles.filterGroup}>
+            <label>Magnitud</label>
+            <select>
+              <option value="">Todos</option>
+              <option value="Leve">Pequeño</option>
+              <option value="Moderado">Mediano</option>
+              <option value="Fuerte">Grande</option>
+            </select>
+          </div>
+
+          <button className={styles.filterButton}>Limpiar filtros</button>
+        </div>
+
+        <div className={styles.chartsContainer}>
+          <div className={styles.chartWrapper}>
+            <h2>Tendencia Mensual</h2>
+            <Line data={lineChartData} options={{
+              responsive: true,
+              plugins: {
+                legend: {
+                  position: 'top',
+                },
+              },
+            }} />
+          </div>
+
+          <div className={styles.chartWrapper}>
+            <h2>Distribución por Región</h2>
+            <Bar data={barChartData} options={{
+              responsive: true,
+              plugins: {
+                legend: {
+                  position: 'top',
+                },
+              },
+            }} />
+          </div>
+
+          <div className={styles.chartWrapper}>
+            <h2>Intensidad de Sismos</h2>
+            <Pie data={pieChartData} options={{
+              responsive: true,
+              plugins: {
+                legend: {
+                  position: 'top',
+                },
+              },
+            }} />
+          </div>
+
+          <div className={styles.chartWrapper}>
+            <h2>Profundidad de Sismos</h2>
+            <Doughnut data={doughnutChartData} options={{
+              responsive: true,
+              plugins: {
+                legend: {
+                  position: 'top',
+                },
+              },
+            }} />
+          </div>
+
+          <div className={styles.chartWrapper}>
+            <h2>Características del Sismo</h2>
+            <Radar data={radarChartData} options={{
+              responsive: true,
+              plugins: {
+                legend: {
+                  position: 'top',
+                },
+              },
+            }} />
+          </div>
+        </div>
+      </div>
+    </>
+  );
 }
 
 export default Estadistica;
