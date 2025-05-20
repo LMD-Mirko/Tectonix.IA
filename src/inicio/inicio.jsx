@@ -1,102 +1,121 @@
 import React from "react";
-import "./inicio.modulo.css";
+import { ChartLine, MapPin, Brain, Shield, Database, Globe } from "phosphor-react";
+import Nav from "../componentes/Nav";
+import HeroCarousel from "../componentes/HeroCarousel";
+import styles from "./inicio.module.css";
 
-const Inicio = () => {
+const services = [
+  {
+    icon: <Brain size={36} weight="duotone" />,
+    title: "Ingeniería de datos aplicada a fenómenos sísmicos",
+    desc: "Nuestro sistema recopila, clasifica y procesa miles de datos geofísicos con IA para ofrecerte predicciones más confiables."
+  },
+  {
+    icon: <MapPin size={36} weight="duotone" />,
+    title: "Visualización interactiva y mapas de riesgo",
+    desc: "Explora mapas dinámicos que muestran puntos críticos, frecuencias y probabilidad de actividad sísmica."
+  },
+  {
+    icon: <ChartLine size={36} weight="duotone" />,
+    title: "Consulta predictiva",
+    desc: "Consulta análisis sísmicos detallados de tu región, basados en IA, datos históricos y modelos predictivos."
+  }
+];
+
+const features = [
+  {
+    icon: <Shield size={36} weight="duotone" />,
+    title: "Prevención Avanzada",
+    desc: "Sistema de alerta temprana basado en IA para anticipar eventos sísmicos."
+  },
+  {
+    icon: <Database size={36} weight="duotone" />,
+    title: "Big Data",
+    desc: "Procesamiento de millones de datos sísmicos en tiempo real."
+  },
+  {
+    icon: <Globe size={36} weight="duotone" />,
+    title: "Cobertura Global",
+    desc: "Monitoreo de actividad sísmica en todo el mundo."
+  }
+];
+
+export default function Inicio() {
   return (
-    <div className="inicio-container">
-      <header className="header">
-        <div className="header-content">
+    <div className={styles["app-container"]}>
+      <Nav />
+      
+      {/* Hero Section with Carousel */}
+      <section className={styles["hero-section"]} id="inicio">
+        <HeroCarousel />
+      </section>
+
+      {/* Services Section */}
+      <section className={styles["servicios-minimal"]} id="servicios">
+        <div className={styles["section-header"]}>
+          <h2 className={styles["gradient-text"]}>Nuestros Servicios</h2>
+          <p className={styles["section-subtitle"]}>
+            Soluciones tecnológicas avanzadas para la predicción y análisis sísmico
+          </p>
         </div>
-      </header>
+        <div className={styles["servicios-grid-minimal"]}>
+          {services.map((s, i) => (
+            <div className={styles["servicio-card-minimal"]} key={i}>
+              <div className={styles["servicio-icon-minimal"]}>{s.icon}</div>
+              <h3>{s.title}</h3>
+              <p>{s.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
 
-      <main>
-        <section className="hero" aria-labelledby="hero-title">
-          <div className="hero-text">
-            <h1 id="hero-title">
-              Anticípate a los <br /> Sismos con <br /> <span>Inteligencia Artificial</span>
-            </h1>
+      {/* Features Section */}
+      <section className={styles["features-section"]}>
+        <div className={styles["section-header"]}>
+          <h2 className={styles["gradient-text"]}>Características Principales</h2>
+          <p className={styles["section-subtitle"]}>
+            Tecnología de vanguardia al servicio de la prevención
+          </p>
+        </div>
+        <div className={styles["features-grid"]}>
+          {features.map((f, i) => (
+            <div className={styles["feature-card"]} key={i}>
+              <div className={styles["feature-icon"]}>{f.icon}</div>
+              <h3>{f.title}</h3>
+              <p>{f.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* About Section */}
+      <section className={styles["about-minimal"]} id="about">
+        <div className={styles["about-container"]}>
+          <div className={styles["about-content-minimal"]}>
+            <h2>Sobre nosotros</h2>
             <p>
-              Consulta análisis sísmicos detallados de tu región, basados en inteligencia artificial, datos históricos y modelos predictivos. Explora zonas de riesgo, revisa tendencias y toma decisiones informadas con una plataforma diseñada para ofrecer claridad, seguridad y precisión.
+              Este proyecto nace como parte del curso de Machine Learning en Senati, con el objetivo de aplicar modelos de aprendizaje automático a un problema real: la predicción y el análisis de actividad sísmica.
             </p>
-            <button type="button" aria-label="Explorar servicios">Explorar</button>
+            <p>
+              Hemos desarrollado un sistema que recopila datos geofísicos, los procesa con algoritmos de IA, y visualiza zonas de riesgo sísmico. Este proyecto representa no solo una iniciativa académica, sino una apuesta por la tecnología al servicio de la prevención.
+            </p>
+            <p>
+              Buscamos demostrar cómo el aprendizaje automático puede integrarse a soluciones reales que impacten positivamente en la sociedad.
+            </p>
           </div>
-          <div className="hero-image">
-            <div className="image-placeholder"></div>
+          <div className={styles["about-image"]}>
+            <img src="/images/about-image.jpg" alt="Tectonix IA Team" />
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section className="services" aria-labelledby="services-title">
-          <h2 id="services-title">Nuestros Servicios</h2>
-          <div className="cards">
-            <div className="card" role="article" aria-label="Servicio 1">
-              <div className="card-content">
-                <h3>Análisis Predictivo</h3>
-                <p>Predicciones precisas basadas en datos históricos y modelos de IA avanzados.</p>
-              </div>
-            </div>
-            <div className="card" role="article" aria-label="Servicio 2">
-              <div className="card-content">
-                <h3>Mapas de Riesgo</h3>
-                <p>Visualización interactiva de zonas de riesgo sísmico en tiempo real.</p>
-              </div>
-            </div>
-            <div className="card" role="article" aria-label="Servicio 3">
-              <div className="card-content">
-                <h3>Reportes Detallados</h3>
-                <p>Informes completos con análisis y recomendaciones personalizadas.</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="details">
-          <div className="detail-block">
-            <div className="detail-content">
-              <div className="detail-text">
-                <h3>Ingeniería de datos aplicada a fenómenos sísmicos</h3>
-                <p>Nuestro sistema recopila, clasifica y procesa miles de datos geofísicos con IA para ofrecerte predicciones más confiables.</p>
-              </div>
-              <div className="detail-image">
-                <div className="image-placeholder"></div>
-              </div>
-            </div>
-          </div>
-          <div className="detail-block">
-            <div className="detail-content reverse">
-              <div className="detail-text">
-                <h3>Visualización interactiva y mapas de riesgo</h3>
-                <p>Explora mapas dinámicos que muestran puntos críticos, frecuencias y probabilidad de actividad sísmica.</p>
-              </div>
-              <div className="detail-image">
-                <div className="image-placeholder"></div>
-              </div>
-            </div>
-          </div>
-          <div className="about">
-            <div className="about-content">
-              <h4>Sobre nosotros</h4>
-              <h3>Un proyecto con propósito y aprendizaje real</h3>
-              <p>
-                Este proyecto nace como parte del curso de Machine Learning en Senati, con el objetivo de aplicar modelos de aprendizaje automático a un problema real: la predicción y el análisis de actividad sísmica.
-                Hemos desarrollado un sistema que recopila datos geofísicos, los procesa con algoritmos de IA, y visualiza zonas de riesgo sísmico. Este proyecto representa no solo una iniciativa académica, sino una apuesta por la tecnología al servicio de la prevención.
-              </p>
-            </div>
-            <div className="about-images">
-              <div className="image-placeholder"></div>
-              <div className="image-placeholder"></div>
-              <div className="image-placeholder"></div>
-            </div>
-          </div>
-        </section>
-      </main>
-
-      <footer>
-        <div className="footer-content">
-          <p>© 2025 <strong>LOGITO</strong>. Todos los derechos reservados.</p>
+      {/* Footer */}
+      <footer className={styles["footer-minimal"]}>
+        <div className={styles["footer-content-minimal"]}>
+          <span className={styles["footer-logo-minimal"]}>TECTONIX<span className={styles["logo-accent"]}>.IA</span></span>
+          <span className={styles["footer-copy-minimal"]}>© 2025 TECTONIX.IA. Todos los derechos reservados.</span>
         </div>
       </footer>
     </div>
   );
-};
-
-export default Inicio;
+}
