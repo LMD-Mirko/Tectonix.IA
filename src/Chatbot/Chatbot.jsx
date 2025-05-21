@@ -193,121 +193,148 @@ export default function SismoBot() {
     }
   };
 
+  const handleRegresar = () => {
+    // Aquí puedes agregar la lógica para manejar el evento de regreso
+    // Por ejemplo, redirigir a la página anterior
+    window.history.back();
+    // O si prefieres usar react-router:
+    // navigate(-1);
+  };
+
   return (
-    <Box className={estilo.chatContainer}>
-      <button className={estilo.botonRegresar}>REGRESAR</button>
-      <div className={estilo.seismicOverlay}></div>
-      <div className={estilo.gridBackground}></div>
-      <SeismicBackground />
-
-      {/* Centrado absoluto del chat */}
-      <Box sx={{ width: '100vw', minHeight: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'relative', zIndex: 1 }}>
-        <Paper className={estilo.chatPaper} elevation={3}>
-          {/* Header */}
-          <Box className={estilo.chatHeader}>
-            <Box className={estilo.headerLeftContent}>
-              <Avatar className={estilo.botAvatar}>
-                <WavesIcon className={estilo.botIcon} />
-              </Avatar>
-              <Box>
-                <Typography variant="h6" component="h1" className={estilo.headerTitle}>
-                  TectonixBot
-                </Typography>
-                <Typography variant="body2" className={estilo.headerSubtitle}>
-                  Sistema de monitoreo sísmico
-                </Typography>
-              </Box>
-            </Box>
-            <Box className={estilo.headerRightContent}>
-              <Chip
-                label={estadoServidor.mensaje}
-                size="small"
-                variant="outlined"
-                className={`${estilo.statusChip} ${errorConexion ? estilo.statusChipDisconnected : estilo.statusChipConnected}`}
-              />
-              <IconButton 
-                onClick={reiniciarChat}
-                disabled={errorConexion}
-                color="inherit"
-                size="small"
-                className={estilo.resetButton}
-              >
-                <RestartAltIcon />
-              </IconButton>
-            </Box>
-          </Box>
-
-          {/* Chat Mensages*/}
-          <Box
-            ref={chatBodyRef}
-            className={estilo.chatBody}
-          >
-            {mensajes.map((mensaje, index) => (
-              <Box 
-                key={index} 
-                className={`${estilo.messageBubble} ${mensaje.tipo === 'usuario' ? estilo.userMessage : estilo.botMessage}`}
-              >
-                <Typography variant="body1" className={estilo.messageText}>
-                  {mensaje.texto}
-                </Typography>
-                <Typography 
-                  variant="caption" 
-                  className={`${estilo.messageTime} ${mensaje.tipo === 'usuario' ? estilo.userMessageTime : estilo.botMessageTime}`}
-                >
-                  {mensaje.hora}
-                </Typography>
-              </Box>
-            ))}
-            {cargando && (
-              <Box className={estilo.typingIndicator}>
-                <div className={estilo.typingDot}></div>
-                <div className={estilo.typingDot}></div>
-                <div className={estilo.typingDot}></div>
-              </Box>
-            )}
-          </Box>
-
-          {   }
-          <Box className={estilo.suggestionsArea}>
-            <Box className={estilo.suggestionChipsContainer}>
-              {sugerencias.map((sugerencia, index) => (
-                <Chip
-                  key={index}
-                  label={sugerencia}
-                  onClick={() => usarSugerencia(sugerencia)}
-                  disabled={errorConexion || cargando}
-                  className={estilo.suggestionChip}
-                />
-              ))}
-            </Box>
-          </Box>
-
-          {/* Input Area */}
-          <Box className={estilo.inputArea}>
-            <TextField
-              inputRef={inputRef}
-              fullWidth
-              variant="outlined"
-              placeholder={errorConexion ? "Servidor desconectado..." : "Escribe tu consulta sobre sismos aquí..."}
-              value={mensajeUsuario}
-              onChange={(e) => setMensajeUsuario(e.target.value)}
-              onKeyDown={manejarTeclaPresionada}
-              disabled={errorConexion || cargando}
-              size="small"
-              className={estilo.messageInput}
-            />
-            <Button
-              variant="contained"
-              endIcon={<SendIcon />}
-              onClick={enviarMensaje}
-              disabled={!mensajeUsuario.trim() || cargando || errorConexion}
-              className={estilo.sendButton}
-            >
-              Enviar
-            </Button>
-          </Box>
-        </Paper>
-      </Box>
+  <Box className={estilo.chatContainer}>
+    {/* Botón REGRESAR siempre visible por encima de todo */}
+    <Box className={estilo.botonRegresarWrapper}>
+      <button className={estilo.botonRegresar} onClick={handleRegresar}>
+        REGRESAR
+      </button>
     </Box>
-  );
+
+    <div className={estilo.seismicOverlay}></div>
+    <div className={estilo.gridBackground}></div>
+    <SeismicBackground />
+
+    {/* Centrado absoluto del chat */}
+    <Box
+      sx={{
+        width: '100%',
+        maxWidth: '1200px',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'relative',
+        zIndex: 1,
+      }}
+    >
+      <Paper className={estilo.chatPaper} elevation={3}>
+        {/* Header */}
+        <Box className={estilo.chatHeader}>
+          <Box className={estilo.headerLeftContent}>
+            <Avatar className={estilo.botAvatar}>
+              <WavesIcon className={estilo.botIcon} />
+            </Avatar>
+            <Box>
+              <Typography variant="h6" component="h1" className={estilo.headerTitle}>
+                TectonixBot
+              </Typography>
+              <Typography variant="body2" className={estilo.headerSubtitle}>
+                Sistema de monitoreo sísmico
+              </Typography>
+            </Box>
+          </Box>
+          <Box className={estilo.headerRightContent}>
+            <Chip
+              label={estadoServidor.mensaje}
+              size="small"
+              variant="outlined"
+              className={`${estilo.statusChip} ${
+                errorConexion ? estilo.statusChipDisconnected : estilo.statusChipConnected
+              }`}
+            />
+            <IconButton
+              onClick={reiniciarChat}
+              disabled={errorConexion}
+              color="inherit"
+              size="small"
+              className={estilo.resetButton}
+            >
+              <RestartAltIcon />
+            </IconButton>
+          </Box>
+        </Box>
+
+        {/* Chat Mensages*/}
+        <Box
+          ref={chatBodyRef}
+          className={estilo.chatBody}
+        >
+          {mensajes.map((mensaje, index) => (
+            <Box
+              key={index}
+              className={`${estilo.messageBubble} ${mensaje.tipo === 'usuario' ? estilo.userMessage : estilo.botMessage}`}
+            >
+              <Typography variant="body1" className={estilo.messageText}>
+                {mensaje.texto}
+              </Typography>
+              <Typography
+                variant="caption"
+                className={`${estilo.messageTime} ${mensaje.tipo === 'usuario' ? estilo.userMessageTime : estilo.botMessageTime}`}
+              >
+                {mensaje.hora}
+              </Typography>
+            </Box>
+          ))}
+          {cargando && (
+            <Box className={estilo.typingIndicator}>
+              <div className={estilo.typingDot}></div>
+              <div className={estilo.typingDot}></div>
+              <div className={estilo.typingDot}></div>
+            </Box>
+          )}
+        </Box>
+
+        {/* Suggestion Area */}
+        <Box className={estilo.suggestionsArea}>
+          <Box className={estilo.suggestionChipsContainer}>
+            {sugerencias.map((sugerencia, index) => (
+              <Chip
+                key={index}
+                label={sugerencia}
+                onClick={() => usarSugerencia(sugerencia)}
+                disabled={errorConexion || cargando}
+                className={estilo.suggestionChip}
+              />
+            ))}
+          </Box>
+        </Box>
+
+        {/* Input Area */}
+        <Box className={estilo.inputArea}>
+          <TextField
+            inputRef={inputRef}
+            fullWidth
+            variant="outlined"
+            placeholder={errorConexion ? "Servidor desconectado..." : "Escribe tu consulta sobre sismos aquí..."}
+            value={mensajeUsuario}
+            onChange={(e) => setMensajeUsuario(e.target.value)}
+            onKeyDown={manejarTeclaPresionada}
+            disabled={errorConexion || cargando}
+            size="small"
+            className={estilo.messageInput}
+          />
+          <Button
+            variant="contained"
+            endIcon={<SendIcon />}
+            onClick={enviarMensaje}
+            disabled={!mensajeUsuario.trim() || cargando || errorConexion}
+            className={estilo.sendButton}
+          >
+            Enviar
+          </Button>
+        </Box>
+      </Paper>
+    </Box>
+  </Box>
+);
+
 }
