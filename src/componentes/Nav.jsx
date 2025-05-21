@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { List, X } from "phosphor-react";
 import styles from "./Nav.module.css";
 
@@ -6,43 +7,46 @@ const Nav = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("inicio");
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
-      
-      // Actualizar sección activa basada en el scroll
-      const sections = ["inicio", "servicios", "mapa", "consulta", "about"];
-      const currentSection = sections.find(section => {
-        const element = document.getElementById(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          return rect.top <= 100 && rect.bottom >= 100;
+
+      // Actualizar sección activa basada en el scroll solo si estamos en la ruta principal
+      if (location.pathname === "/") {
+        const sections = ["inicio", "servicios", "consulta", "about"];
+        const currentSection = sections.find(section => {
+          const element = document.getElementById(section);
+          if (element) {
+            const rect = element.getBoundingClientRect();
+            return rect.top <= 100 && rect.bottom >= 100;
+          }
+          return false;
+        });
+        if (currentSection) {
+          setActiveSection(currentSection);
         }
-        return false;
-      });
-      
-      if (currentSection) {
-        setActiveSection(currentSection);
+      } else {
+        setActiveSection("");
       }
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [location.pathname]);
 
   const links = [
-    { id: "inicio", label: "Inicio", href: "#inicio" },
-    { id: "servicios", label: "Servicios", href: "#servicios" },
-    { id: "mapa", label: "Mapa Predictivo", href: "#mapa" },
-    { id: "consulta", label: "Consulta", href: "#consulta" },
-    { id: "about", label: "Sobre Nosotros", href: "#about" }
+    { id: "inicio", label: "Inicio", href: "#inicio", isRoute: false },
+    { id: "servicios", label: "Servicios", href: "#servicios", isRoute: false },
+    { id: "mapa", label: "Mapa Predictivo", href: "/mapa", isRoute: true },
+    { id: "consulta", label: "Consulta", href: "/consulta", isRoute: true },
+    { id: "about", label: "Sobre Nosotros", href: "#about", isRoute: false }
   ];
 
-  const handleLinkClick = (e, href) => {
-    e.preventDefault();
-    setIsOpen(false);
-    const element = document.querySelector(href);
+  const scrollToSection = (hash) => {
+    const element = document.querySelector(hash);
     if (element) {
       const navHeight = document.querySelector(`.${styles.nav}`).offsetHeight;
       const elementPosition = element.getBoundingClientRect().top;
@@ -55,28 +59,60 @@ const Nav = () => {
     }
   };
 
+  const handleLinkClick = (e, href, isRoute) => {
+    if (isRoute) {
+      setIsOpen(false);
+      return;
+    }
+
+    if (href.startsWith("#")) {
+      e.preventDefault();
+      setIsOpen(false);
+
+      if (location.pathname === "/") {
+        scrollToSection(href);
+      } else {
+        navigate("/", { replace: false });
+        setTimeout(() => {
+          scrollToSection(href);
+        }, 100);
+      }
+    }
+  };
+
   return (
     <nav className={`${styles.nav} ${scrolled ? styles.scrolled : ""}`}>
       <div className={styles.navContainer}>
-        <a 
-          href="#inicio" 
+        <Link
+          to="/"
           className={styles.logo}
-          onClick={(e) => handleLinkClick(e, "#inicio")}
+          onClick={() => setIsOpen(false)}
         >
           TECTONIX<span className={styles.logoAccent}>.IA</span>
-        </a>
+        </Link>
 
         <div className={`${styles.navLinks} ${isOpen ? styles.open : ""}`}>
-          {links.map((link) => (
-            <a
-              key={link.id}
-              href={link.href}
-              className={`${styles.navLink} ${activeSection === link.id ? styles.active : ""}`}
-              onClick={(e) => handleLinkClick(e, link.href)}
-            >
-              {link.label}
-            </a>
-          ))}
+          {links.map((link) =>
+            link.isRoute ? (
+              <Link
+                key={link.id}
+                to={link.href}
+                className={`${styles.navLink} ${location.pathname === link.href ? styles.active : ""}`}
+                onClick={() => setIsOpen(false)}
+              >
+                {link.label}
+              </Link>
+            ) : (
+              <a
+                key={link.id}
+                href={link.href}
+                className={`${styles.navLink} ${activeSection === link.id ? styles.active : ""}`}
+                onClick={(e) => handleLinkClick(e, link.href, link.isRoute)}
+              >
+                {link.label}
+              </a>
+            )
+          )}
         </div>
 
         <button
@@ -91,4 +127,4 @@ const Nav = () => {
   );
 };
 
-export default Nav; 
+export default Nav;
