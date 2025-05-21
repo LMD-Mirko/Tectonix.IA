@@ -5,11 +5,14 @@ import Inicio from "./inicio/inicio";
 import Estadistica from "./Mostrar_Estadisticas/estadistica"; 
 import Predictiva from "./consulta_predictiva/predictiva";
 import ChatBot from "./Chatbot/Chatbot.jsx";
+import Error404 from "./Error404/Error.jsx";
 
 function AppWrapper() {
   const location = useLocation();
 
-  const ocultarNav = location.pathname === "/chatbot";
+  const rutasConNav = ["/", "/mapa", "/consulta"];
+
+  const ocultarNav = !rutasConNav.includes(location.pathname);
 
   return (
     <>
@@ -19,6 +22,7 @@ function AppWrapper() {
         <Route path="/mapa" element={<Estadistica />} />
         <Route path="/consulta" element={<Predictiva />} />
         <Route path="/chatbot" element={<ChatBot />} />
+        <Route path="*" element={<Error404 />} />
       </Routes>
     </>
   );
