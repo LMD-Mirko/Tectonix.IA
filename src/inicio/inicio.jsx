@@ -88,7 +88,6 @@ export default function Inicio() {
           ))}
         </div>
       </section>
-
       {/* About Section */}
       <section className={styles["about-minimal"]} id="about">
         <div className={styles["about-container"]}>

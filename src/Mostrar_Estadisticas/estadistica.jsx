@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Line, Bar, Pie, Doughnut, Radar } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -14,9 +14,9 @@ import {
   Legend,
 } from 'chart.js';
 import styles from './estadistica.module.css';
+import { useNavigate } from 'react-router-dom';
 
-
-// Register ChartJS components
+// Registrar componentes ChartJS
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -31,7 +31,23 @@ ChartJS.register(
 );
 
 function Estadistica() {
-  // Sample data for charts
+  const navigate = useNavigate();
+
+  // Estados para filtros
+  const [zona, setZona] = useState('');
+  const [profMin, setProfMin] = useState('');
+  const [profMax, setProfMax] = useState('');
+  const [magnitud, setMagnitud] = useState('');
+
+  // Función para limpiar filtros
+  const limpiarFiltros = () => {
+    setZona('');
+    setProfMin('');
+    setProfMax('');
+    setMagnitud('');
+  };
+
+  // Datos de ejemplo para gráficos
   const lineChartData = {
     labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun'],
     datasets: [
@@ -102,108 +118,134 @@ function Estadistica() {
   };
 
   return (
-    <>
+    <div className={styles.container}>
+      <div className={styles.header} style={{ paddingTop: '60px' }}>
+        <h1>Estadísticas de Sismos</h1>
+      </div>
 
-      <div className={styles.container}>
-        <div className={styles.header}>
-          <h1>Estadísticas de Sismos</h1>
-        </div>
-        
-        <div className={styles.filters}>
-          <div className={styles.filterGroup}>
-            <label>Zona Sísmica</label>
-            <select>
-              <option value="">Todas</option>
-              <option value="Costa">Costa</option>
-              <option value="Sierra">Sierra</option>
-              <option value="Selva">Selva</option>
-            </select>
-          </div>
-
-          <div className={styles.filterGroup}>
-            <label>Profundidad (km)</label>
-            <div className={styles.rangeInputs}>
-              <input type="number" placeholder="Mín" min={0} />
-              <input type="number" placeholder="Máx" min={0} />
-            </div>
-          </div>
-
-          <div className={styles.filterGroup}>
-            <label>Magnitud</label>
-            <select>
-              <option value="">Todos</option>
-              <option value="Leve">Pequeño</option>
-              <option value="Moderado">Mediano</option>
-              <option value="Fuerte">Grande</option>
-            </select>
-          </div>
-
-          <button className={styles.filterButton}>Limpiar filtros</button>
+      <div className={styles.filters}>
+        <div className={styles.filterGroup}>
+          <label>Zona Sísmica</label>
+          <select value={zona} onChange={e => setZona(e.target.value)}>
+            <option value="">Todas</option>
+            <option value="Costa">Costa</option>
+            <option value="Sierra">Sierra</option>
+            <option value="Selva">Selva</option>
+          </select>
         </div>
 
-        <div className={styles.chartsContainer}>
-          <div className={styles.chartWrapper}>
-            <h2>Tendencia Mensual</h2>
-            <Line data={lineChartData} options={{
-              responsive: true,
-              plugins: {
-                legend: {
-                  position: 'top',
-                },
-              },
-            }} />
+        <div className={styles.filterGroup}>
+          <label>Profundidad (km)</label>
+          <div className={styles.rangeInputs}>
+            <input
+              type="number"
+              placeholder="Mín"
+              min={0}
+              value={profMin}
+              onChange={e => setProfMin(e.target.value)}
+            />
+            <input
+              type="number"
+              placeholder="Máx"
+              min={0}
+              value={profMax}
+              onChange={e => setProfMax(e.target.value)}
+            />
           </div>
+        </div>
 
-          <div className={styles.chartWrapper}>
-            <h2>Distribución por Región</h2>
-            <Bar data={barChartData} options={{
-              responsive: true,
-              plugins: {
-                legend: {
-                  position: 'top',
-                },
-              },
-            }} />
-          </div>
+        <div className={styles.filterGroup}>
+          <label>Magnitud</label>
+          <select value={magnitud} onChange={e => setMagnitud(e.target.value)}>
+            <option value="">Todos</option>
+            <option value="Leve">Pequeño</option>
+            <option value="Moderado">Mediano</option>
+            <option value="Fuerte">Grande</option>
+          </select>
+        </div>
 
-          <div className={styles.chartWrapper}>
-            <h2>Intensidad de Sismos</h2>
-            <Pie data={pieChartData} options={{
-              responsive: true,
-              plugins: {
-                legend: {
-                  position: 'top',
-                },
-              },
-            }} />
-          </div>
+        <button className={styles.filterButton} onClick={limpiarFiltros}>
+          Limpiar filtros
+        </button>
+      </div>
 
-          <div className={styles.chartWrapper}>
-            <h2>Profundidad de Sismos</h2>
-            <Doughnut data={doughnutChartData} options={{
+      <div className={styles.chartsContainer}>
+        <div className={styles.chartWrapper}>
+          <h2>Tendencia Mensual</h2>
+          <Line
+            data={lineChartData}
+            options={{
               responsive: true,
               plugins: {
                 legend: {
                   position: 'top',
                 },
               },
-            }} />
-          </div>
+            }}
+          />
+        </div>
 
-          <div className={styles.chartWrapper}>
-            <h2>Características del Sismo</h2>
-            <Radar data={radarChartData} options={{
+        <div className={styles.chartWrapper}>
+          <h2>Distribución por Región</h2>
+          <Bar
+            data={barChartData}
+            options={{
               responsive: true,
               plugins: {
                 legend: {
                   position: 'top',
                 },
               },
-            }} />
-          </div>
+            }}
+          />
+        </div>
+
+        <div className={styles.chartWrapper}>
+          <h2>Intensidad de Sismos</h2>
+          <Pie
+            data={pieChartData}
+            options={{
+              responsive: true,
+              plugins: {
+                legend: {
+                  position: 'top',
+                },
+              },
+            }}
+          />
+        </div>
+
+        <div className={styles.chartWrapper}>
+          <h2>Profundidad de Sismos</h2>
+          <Doughnut
+            data={doughnutChartData}
+            options={{
+              responsive: true,
+              plugins: {
+                legend: {
+                  position: 'top',
+                },
+              },
+            }}
+          />
+        </div>
+
+        <div className={styles.chartWrapper}>
+          <h2>Características del Sismo</h2>
+          <Radar
+            data={radarChartData}
+            options={{
+              responsive: true,
+              plugins: {
+                legend: {
+                  position: 'top',
+                },
+              },
+            }}
+          />
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
