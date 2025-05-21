@@ -6,10 +6,14 @@
 <div align="center">
   <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" />
   <img src="https://img.shields.io/badge/Material--UI-0081CB?style=for-the-badge&logo=material-ui&logoColor=white" alt="Material UI" />
+  <img src="https://img.shields.io/badge/Antd-0170FE?style=for-the-badge&logo=ant-design&logoColor=white" alt="Ant Design" />
+  <img src="https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white" alt="Axios" />
   <img src="https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white" alt="Node.js" />
- 
+  <img src="https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white" alt="Express" />
   <img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white" alt="Vite" />
 </div>
+
+---
 
 ---
 
@@ -22,7 +26,6 @@
 <div align="center">
   <img src="https://komarev.com/ghpvc/?username=tectonix-bot&style=for-the-badge&color=blueviolet" alt="Visitas" />
 </div>
-
 ## 🌟 Características Principales
 
 <div align="center">
@@ -91,7 +94,7 @@
 ## 🎮 Demostración
 
 <div align="center">
-  <img src="demo.gif" alt="TectonixBot Demo" width="800"/>
+  <img src="src/assets/image.png" alt="TectonixBot Demo" width="800"/>
   
   [![Ver Demo](https://img.shields.io/badge/Ver%20Demo-Live%20Demo-blue?style=for-the-badge)](https://tectonix-bot-demo.com)
 </div>
