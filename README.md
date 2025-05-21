@@ -238,12 +238,29 @@ Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE.md](LICENSE.m
 ## 👥 Autores
 
 <div align="center">
-  <img src="https://img.shields.io/badge/Desarrollador-Tu%20Nombre-blue?style=for-the-badge" alt="Desarrollador" />
-  <br/>
-  <a href="https://github.com/TuUsuario">
-    <img src="https://img.shields.io/badge/GitHub-TuUsuario-black?style=for-the-badge&logo=github" alt="GitHub" />
-  </a>
+
+### Camila Fuentes Rivera  
+<a href="https://github.com/camilafrm" target="_blank">
+  <img src="https://img.shields.io/badge/GitHub-camilafrm-black?style=for-the-badge&logo=github" alt="GitHub Camila" />
+</a>
+
+### Mirko Ramos Limas  
+<a href="https://github.com/LMD-Mirko" target="_blank">
+  <img src="https://img.shields.io/badge/GitHub-LMD--Mirko-black?style=for-the-badge&logo=github" alt="GitHub Mirko" />
+</a>
+
+### Shandler Moscoso Reyes  
+<a href="https://github.com/SMR1011" target="_blank">
+  <img src="https://img.shields.io/badge/GitHub-SMR1011-black?style=for-the-badge&logo=github" alt="GitHub Shandler" />
+</a>
+
+### Kenneth Solis Carlos  
+<a href="https://github.com/Kenneths-c" target="_blank">
+  <img src="https://img.shields.io/badge/GitHub-Kenneths--c-black?style=for-the-badge&logo=github" alt="GitHub Kenneth" />
+</a>
+
 </div>
+
 
 ## 🙏 Agradecimientos
 
