@@ -1,11 +1,11 @@
 .botonRegresarWrapper {
   position: absolute;
-  top: 10px; /* Ajusta este valor para mover el botón hacia arriba o hacia abajo */
-  left: 20px; /* Ajusta este valor para mover el botón hacia la izquierda o hacia la derecha */
+  top: 8px; 
+  left: 10px; 
   width: auto;
   display: flex;
   justify-content: flex-start;
-  padding: 10px; /* Elimina el padding si no es necesario */
+  padding: 8px; 
   box-sizing: border-box;
   z-index: 10;
 }
@@ -13,10 +13,9 @@
 .botonRegresar {
   background: linear-gradient(135deg, #ffffff 0%, #ffffff 100%);
   color: #000000;
-  padding: 8px 20px;
+  padding: 6px 15px;
   border-radius: 24px;
-  font-weight: 700; /* Aumenta este valor para hacer el texto más grueso */
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   letter-spacing: 1px;
   border: 1px solid rgba(0, 255, 247, 0.3);
   cursor: pointer;
@@ -51,14 +50,14 @@
 }
 
 .chatContainer {
-  min-height: 100vh;
+  min-height: 110vh;
   background: radial-gradient(ellipse at center, #0f2027 0%, #203a43 50%, #2c5364 100%);
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
   overflow: hidden;
-  padding-top: 60px; /* Ajustado para reducir el espacio superior */
+  padding-top: 50px; 
 }
 
 /* Main paper container */
@@ -71,13 +70,12 @@
               0 0 60px rgba(255, 0, 0, 0) !important;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.08) !important;
-  width: 90%;
+  width: 110%;
   max-width: 1200px;
-  margin: 20px auto; /* Añadido margen inferior */
+  margin: 20px auto;
   animation: neonPulse 4s infinite;
 }
 
-/* Rest of your CSS remains the same */
 .chatHeader {
   padding: 16px 24px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
@@ -97,7 +95,7 @@
   left: 0;
   width: 100%;
   height: 2px;
-  background: #00fff7; /* Solo un color sólido, sin gradiente */
+  background: #00fff7;
 }
 
 .headerLeftContent {
@@ -144,19 +142,10 @@
 .statusChipDisconnected {
   border-color: #ff0000 !important;
   color: #ff0000 !important;
-  box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+  box-shadow: 0 0 3px rgba(255, 0, 0, 0.3);
 }
-.resetButton {
-  background: rgba(255, 255, 255, 0.05) !important;
-  border-radius: 50% !important;
-  padding: 8px !important;
-  transition: all 0.3s ease !important;
-}
-.resetButton:hover {
-  background: rgba(255, 255, 255, 0.1) !important;
-  transform: rotate(180deg);
-}
-/* Chat messages area */
+
+
 .chatBody {
   height: 500px;
   overflow-y: auto;
@@ -298,8 +287,7 @@
   left: 0;
   width: 100%;
   height: 2px;
-  background: #00fff7; /* Solo un color sólido, sin gradiente */
-}
+  background: #00fff7; 
 
 .messageInput {
   background-color: #1a1a1a !important;
@@ -413,4 +401,5 @@
     box-shadow: 0 0 25px #00ff80,
                 0 0 50px #8000ff;
   }
+}
 }

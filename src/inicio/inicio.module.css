@@ -1,4 +1,4 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 :root {
   --black: #000000;
   --white: #ffffff;
@@ -22,7 +22,7 @@
 }
 
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Poppins';
   background: var(--white);
   color: var(--black);
   min-height: 100vh;

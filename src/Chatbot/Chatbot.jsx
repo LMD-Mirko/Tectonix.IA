@@ -7,7 +7,7 @@ import axios from 'axios';
 import estilo from './Chatbot.module.css';
 import SeismicBackground from '../movimiento/AnimatedBackground';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
+const API_URL = import.meta.env.VITE_API_URL || 'https://web-production-dd640.up.railway.app/api';
 
 export default function SismoBot() {
   const [mensajeUsuario, setMensajeUsuario] = useState('');
@@ -194,11 +194,8 @@ export default function SismoBot() {
   };
 
   const handleRegresar = () => {
-    // Aquí puedes agregar la lógica para manejar el evento de regreso
-    // Por ejemplo, redirigir a la página anterior
+
     window.history.back();
-    // O si prefieres usar react-router:
-    // navigate(-1);
   };
 
   return (

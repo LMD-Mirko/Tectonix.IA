@@ -8,7 +8,7 @@
   --text-light: rgba(255, 255, 255, 0.87);
   --text-dark: #1a1a1a;
   --bg-light: #ffffff;
-  --bg-dark: #1a1a1a;
+  --bg-dark: #000000;
   --bg-container: rgba(255, 255, 255, 0.95);
   --border-light: rgba(255, 255, 255, 0.1);
   --border-dark: #e0e0e0;
@@ -31,7 +31,7 @@ html {
 }
 
 body {
-  font-family: 'Poppins', system-ui, sans-serif;
+  font-family: 'Poppins';
   line-height: 1.5;
   font-weight: 400;
   color-scheme: light dark;
@@ -73,57 +73,8 @@ body {
   z-index: 1000;
 }
 
-/* Navegación */
-.nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: var(--header-height);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 2rem;
-  z-index: 1001;
-}
 
-.nav-logo {
-  font-weight: 700;
-  font-size: 1.5rem;
-  color: var(--primary-color);
-  text-decoration: none;
-}
 
-.nav-links {
-  display: flex;
-  gap: 2rem;
-}
-
-.nav-link {
-  color: var(--secondary-color);
-  text-decoration: none;
-  position: relative;
-  transition: color var(--animation-speed) ease;
-}
-
-.nav-link:hover {
-  color: var(--accent-color);
-}
-
-.nav-link::after {
-  content: '';
-  position: absolute;
-  bottom: -5px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background-color: var(--accent-color);
-  transition: width var(--animation-speed) ease;
-}
-
-.nav-link:hover::after {
-  width: 100%;
-}
 
 /* Efectos visuales de fondo */
 .radarCircles {

@@ -14,7 +14,6 @@ const Nav = () => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
 
-      // Actualizar sección activa basada en el scroll solo si estamos en la ruta principal
       if (location.pathname === "/") {
         const sections = ["inicio", "servicios", "consulta", "about"];
         const currentSection = sections.find(section => {
@@ -40,10 +39,11 @@ const Nav = () => {
   const links = [
     { id: "inicio", label: "Inicio", href: "#inicio", isRoute: false },
     { id: "servicios", label: "Servicios", href: "#servicios", isRoute: false },
+    { id: "about", label: "Sobre Nosotros", href: "#about", isRoute: false },
     { id: "mapa", label: "Mapa Predictivo", href: "/mapa", isRoute: true },
     { id: "consulta", label: "Consulta", href: "/consulta", isRoute: true },
-    { id: "chatbot", label: "TectonixBot", href: "/chatbot", isRoute: true },
-    { id: "about", label: "Sobre Nosotros", href: "#about", isRoute: false }
+    { id: "chatbot", label: "TectonixBot", href: "/chatbot", isRoute: true }
+    
   ];
 
   const scrollToSection = (hash) => {
