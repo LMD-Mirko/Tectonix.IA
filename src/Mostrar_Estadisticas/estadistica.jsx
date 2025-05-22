@@ -14,7 +14,6 @@ import {
   Legend,
 } from "chart.js";
 import styles from "./estadistica.module.css";
-import EmailForm from "./EmailForm/EmailForm";
 
 // Register ChartJS components
 ChartJS.register(
@@ -276,11 +275,6 @@ function Estadistica() {
               }}
             />
           </div>
-        </div>
-
-        {/* Add Email Form Section */}
-        <div className={styles.emailFormSection}>
-          <EmailForm />
         </div>
       </div>
     </>
