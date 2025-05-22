@@ -14,6 +14,7 @@ import {
   Legend,
 } from "chart.js";
 import styles from "./estadistica.module.css";
+import EmailForm from "./EmailForm/EmailForm";
 
 // Register ChartJS components
 ChartJS.register(
@@ -114,6 +115,37 @@ function Estadistica() {
       },
     ],
   };
+
+  // Prepare statistics data for email
+  const statisticsData = {
+    lineChartData: {
+      labels: lineChartData.labels,
+      data: lineChartData.datasets[0].data
+    },
+    barChartData: {
+      labels: barChartData.labels,
+      data: barChartData.datasets[0].data
+    },
+    pieChartData: {
+      labels: pieChartData.labels,
+      data: pieChartData.datasets[0].data
+    },
+    doughnutChartData: {
+      labels: doughnutChartData.labels,
+      data: doughnutChartData.datasets[0].data
+    },
+    radarChartData: {
+      labels: radarChartData.labels,
+      data: radarChartData.datasets[0].data
+    },
+    polarAreaData: {
+      labels: polarAreaData.labels,
+      data: polarAreaData.datasets[0].data
+    }
+  };
+
+  // Agregar console.log para depuración
+  console.log('statisticsData a enviar:', statisticsData);
 
   return (
     <>
@@ -244,6 +276,11 @@ function Estadistica() {
               }}
             />
           </div>
+        </div>
+
+        {/* Add Email Form Section */}
+        <div className={styles.emailFormSection}>
+          <EmailForm />
         </div>
       </div>
     </>
