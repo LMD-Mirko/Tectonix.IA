@@ -8,255 +8,240 @@ body {
   font-family: 'Poppins', sans-serif;
 }
 
-.container {
-  max-width: 1400px;
+.contenedor {
+  max-width: 1600px;
   margin: 0 auto;
   padding: 2rem;
   background-color: #000000;
   min-height: 100vh;
   font-family: 'Poppins', sans-serif;
+  color: #ffffff;
 }
 
-.header {
-  margin-top: 65px; /* Espacio desde la parte superior */
+.encabezado {
+  margin-top: 65px;
   text-align: center;
   margin-bottom: 2rem;
   padding: 2rem;
-  background: linear-gradient(135deg, #000000 0%, #000000 100%);
+  background: rgba(31, 31, 31, 0.8);
   border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.3);
+  border: 1px solid #7c7c7c75;
+  position: relative;
+  overflow: hidden;
 }
 
+.encabezado::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #ffffff, transparent);
+  animation: brillar 3s linear infinite;
+}
 
-.header h1 {
-  color: #ffffff;
+.encabezado h1 {
   font-size: 2.5rem;
+  font-weight: 700;
   margin-bottom: 1rem;
-  font-weight: 600;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(45deg, #ffffff, #cccccc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradienteTexto 8s ease infinite;
 }
 
-.header h2 {
-  color: #ffffff;
+.encabezado h2 {
   font-size: 1.5rem;
-  margin: 10px 0 0;
+  color: #cccccc;
   font-weight: 500;
 }
 
-.departmentInfo {
-  background: rgba(255, 255, 255, 0.05);
-  padding: 1.5rem;
-  border-radius: 12px;
-  margin-top: 1rem;
-}
-
-.departmentInfo h2 {
-  color: #FF4B2B;
-  font-size: 1.8rem;
-  margin-bottom: 1rem;
-  font-weight: 500;
-}
-
-.riskIndicators {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  margin: 1rem 0;
-}
-
-.riskIndicator {
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  color: white;
-  font-weight: 500;
-  font-size: 0.9rem;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-}
-
-.lastEarthquake {
-  background: rgba(255, 255, 255, 0.1);
-  padding: 1rem;
-  border-radius: 8px;
-  margin-top: 1rem;
-}
-
-.lastEarthquake h3 {
-  color: #FF4B2B;
-  font-size: 1.2rem;
-  margin-bottom: 0.5rem;
-}
-
-.lastEarthquake p {
-  color: #ffffff;
-  margin: 0.25rem 0;
-  font-size: 0.95rem;
-}
-
-.filters {
-  background: rgba(255, 255, 255, 0.05);
-  padding: 1.5rem;
+.filtros {
+  background: rgba(31, 31, 31, 0.8);
+  padding: 2rem;
   border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.3);
+  border: 1px solid #7c7c7c75;
   margin-bottom: 2rem;
+  transition: all 0.3s ease;
   display: flex;
   gap: 1.5rem;
   flex-wrap: wrap;
-  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.filterGroup {
+.filtros:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 40px -5px rgba(0, 0, 0, 0.4);
+}
+
+.grupoFiltro {
   flex: 1;
   min-width: 200px;
+  margin-bottom: 1.5rem;
 }
 
-.filterGroup label {
+.grupoFiltro label {
   display: block;
-  margin-bottom: 0.5rem;
-  color: #ffffff;
-  font-weight: 500;
   font-size: 0.9rem;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
 }
 
-.filterGroup select,
-.filterGroup input {
+.grupoFiltro:hover label {
+  transform: translateX(5px);
+}
+
+.grupoFiltro input,
+.grupoFiltro select {
   width: 100%;
   padding: 0.75rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid #7c7c7c34;
   border-radius: 8px;
-  background-color: rgba(0, 0, 0, 0.3);
-  color: #ffffff;
   font-size: 0.95rem;
-  transition: all 0.2s ease;
-  font-family: 'Poppins', sans-serif;
-  cursor: pointer;
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
-  background-repeat: no-repeat;
-  background-position: right 0.75rem center;
-  background-size: 1.5em;
-  padding-right: 2.5rem;
+  transition: all 0.3s ease;
+  background-color: #1f1f1f;
+  color: #ffffff;
 }
 
-.filterGroup select:hover {
-  border-color: rgba(255, 255, 255, 0.4);
-  background-color: rgba(0, 0, 0, 0.4);
-}
-
-.filterGroup select:focus {
+.grupoFiltro input:focus,
+.grupoFiltro select:focus {
   outline: none;
   border-color: #ffffff;
   box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
-  background-color: rgba(0, 0, 0, 0.5);
-}
-
-.filterGroup select option {
-  background-color: #1a1a1a;
-  color: #ffffff;
-  padding: 0.75rem;
-}
-
-.filterGroup select:disabled {
-  background-color: rgba(255, 255, 255, 0.05);
-  cursor: not-allowed;
-  opacity: 0.7;
-}
-
-.filterButton {
-  background-color: #ffffff;
-  color: #000000;
-  padding: 0.75rem 1.5rem;
-  border: none;
-  border-radius: 8px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  align-self: flex-end;
-  font-family: 'Poppins', sans-serif;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.filterButton:hover {
-  background-color: #cccccc;
   transform: translateY(-2px);
 }
 
-.filterButton:disabled {
-  background-color: #666666;
-  cursor: not-allowed;
-  transform: none;
+.grupoFiltro select option {
+  background-color: #1f1f1f;
+  color: #ffffff;
+  padding: 10px;
 }
 
-.chartsContainer {
+.botonFiltro {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #ffffff;
+  color: #000000;
+  border: 1px solid #ffffff;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.botonFiltro::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: all 0.6s ease;
+}
+
+.botonFiltro:hover {
+  background-color: #969696;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.botonFiltro:hover::before {
+  left: 100%;
+}
+
+.contenedorGraficos {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
   gap: 2rem;
   margin-top: 2rem;
 }
 
-.chartWrapper {
-  background: rgb(255, 255, 255);
+.contenedorGrafico {
+  background: #ffffff;
   padding: 1.5rem;
   border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: transform 0.2s ease;
-}
-
-.chartWrapper:hover {
-  transform: translateY(-5px);
-}
-
-.chartWrapper h2 {
-  color: #000000;
-  font-size: 1.25rem;
-  margin-bottom: 1rem;
-  text-align: center;
-  font-weight: 600;
-}
-
-.statsSummary {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1.5rem;
-  margin: 2rem 0;
-  padding: 0 1rem;
-}
-
-.statCard {
-  background: rgba(255, 255, 255, 0.05);
-  padding: 1.5rem;
-  border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-  text-align: center;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.3);
+  border: 1px solid #7c7c7c75;
   transition: all 0.3s ease;
 }
 
-.statCard:hover {
+.contenedorGrafico:hover {
   transform: translateY(-5px);
-  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 15px 40px -5px rgba(0, 0, 0, 0.4);
 }
 
-.statCard h3 {
-  color: #ffffff;
-  font-size: 1rem;
+.contenedorGrafico h2 {
+  font-size: 1.2rem;
+  color: #000000;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.resumenEstadisticas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.tarjetaEstadistica {
+  background: rgba(31, 31, 31, 0.8);
+  padding: 1.5rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.3);
+  border: 1px solid #7c7c7c75;
+  text-align: center;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.tarjetaEstadistica::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
+}
+
+.tarjetaEstadistica:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px -5px rgba(0, 0, 0, 0.4);
+}
+
+.tarjetaEstadistica:hover::before {
+  transform: translateX(100%);
+}
+
+.tarjetaEstadistica h3 {
+  font-size: 1.1rem;
+  color: #cccccc;
   margin-bottom: 0.5rem;
   font-weight: 500;
 }
 
-.statCard p {
+.tarjetaEstadistica p {
+  font-size: 2rem;
   color: #ffffff;
-  font-size: 1.8rem;
-  margin: 0;
-  font-weight: 600;
+  font-weight: 700;
 }
 
-.loadingMessage {
+.mensajeCargando {
   text-align: center;
   padding: 2rem;
   font-size: 1.2rem;
@@ -270,7 +255,7 @@ body {
   gap: 1rem;
 }
 
-.errorMessage {
+.mensajeError {
   text-align: center;
   padding: 1rem;
   font-size: 1.1rem;
@@ -279,6 +264,25 @@ body {
   border-radius: 16px;
   margin: 1rem 0;
   border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.mensajeSinDatos {
+  text-align: center;
+  padding: 2rem;
+  background: rgba(31, 31, 31, 0.8);
+  border-radius: 16px;
+  margin: 1rem 0;
+}
+
+.mensajeSinDatos h2 {
+  color: #ffffff;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.mensajeSinDatos p {
+  color: #cccccc;
+  font-size: 1.1rem;
 }
 
 .spinner {
@@ -287,218 +291,155 @@ body {
   border: 3px solid rgba(255, 255, 255, 0.3);
   border-radius: 50%;
   border-top-color: #ffffff;
-  animation: spin 1s linear infinite;
+  animation: girar 1s linear infinite;
 }
 
-@keyframes spin {
+@keyframes girar {
   to {
     transform: rotate(360deg);
   }
 }
 
-@media (max-width: 768px) {
-  .container {
-    padding: 1rem;
-  }
-
-  .header h1 {
-    font-size: 2rem;
-  }
-
-  .filters {
-    flex-direction: column;
-  }
-
-  .filterGroup {
-    min-width: 100%;
-  }
-
-  .chartsContainer {
-    grid-template-columns: 1fr;
-  }
-
-  .statsSummary {
-    grid-template-columns: 1fr;
-  }
+@keyframes brillar {
+  0% { background-position: -100% 0; }
+  100% { background-position: 200% 0; }
 }
 
-.estadisticas-main {
-  max-width: 200px;
-  margin: 90px;
-  background: #a79f9f;
-  padding: 30px;
+@keyframes gradienteTexto {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.seccionUltimoSismo {
+  background: rgba(31, 31, 31, 0.8);
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.3);
+  border: 1px solid #7c7c7c75;
+  margin-bottom: 2rem;
+}
+
+.seccionUltimoSismo h2 {
+  font-size: 1.5rem;
+  color: #ffffff;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-weight: 600;
+}
+
+.tarjetaUltimoSismo {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  padding: 1.5rem;
+  background: rgba(0, 0, 0, 0.3);
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  
+  border: 1px solid #7c7c7c75;
 }
 
-.filtros {
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-}
-
-.filtros-header {
-  font-weight: 10;
-  font-size: 1.25rem;
-  color: #000;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  border-bottom: 2px solid #ccc;
-  padding-bottom: 6px;
-}
-
-.icono {
-  font-size: 28px;
-  color: #555;
-}
-
-/* ------------------- Etiquetas y Campos ------------------- */
-label {
-  font-weight: 100;
-  color: #222;
-  margin-bottom: 4px;
-  display: block;
-}
-
-select,
-input[type="number"] {
-  width: 100%;
-  padding: 8px 10px;
-  border: 1.5px solid #bbb;
+.infoUltimoSismo {
+  text-align: center;
+  padding: 1rem;
   border-radius: 8px;
-  background: #fff;
-  color: #000;
+  transition: all 0.3s ease;
+}
+
+.infoUltimoSismo:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.infoUltimoSismo h3 {
   font-size: 1rem;
-  outline: none;
-  transition: border-color 0.2s ease;
+  color: #cccccc;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
 }
 
-select:focus,
-input[type="number"]:focus {
-  border-color: #000;
-}
-
-/* ------------------- Inputs Edad ------------------- */
-.edad-inputs {
-  display: flex;
-  gap: 6px;
-}
-
-.edad-inputs input {
-  width: 48%;
-}
-
-/* ------------------- Botón ------------------- */
-button {
-  width: 100%;
-  padding: 10px 0;
-  border-radius: 10px;
-  border: none;
-  background-color: #000;
-  color: #fff;
-  font-weight: 700;
+.infoUltimoSismo p {
   font-size: 1.1rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+  color: #ffffff;
+  font-weight: 600;
 }
 
-button:hover {
-  background-color: #333;
+.botonReporte {
+  text-align: center;
+  margin-top: 2rem;
 }
 
-/* ------------------- Gráficos ------------------- */
-.statistics {
-  flex: 1;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 100px;
-  justify-content: flex-start;
-}
-
-.lineChart, .pieChart, .barChart {
-  border: 2px solid #000;
-  border-radius: 15px;
-  margin-top: 90px;
-}
-
-.barChart {
-  width: 700px;
-  height: 250px;
-  margin-top: -70px;
+.botonEnviarReporte {
+  padding: 1rem 2rem;
+  background-color: #ffffff;
+  color: #000000;
+  border: 1px solid #ffffff;
   border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
 }
 
-.lineChart img,
-.pieChart img,
-.barChart img{
+.botonEnviarReporte::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  border-radius: 10px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: all 0.6s ease;
 }
 
-/* ------------------- Barras Superiores e Informativas ------------------- */
-.top-bar,
-.extra-section,
-.info-box,
-.new-box {
-  width: 100%;
-  height: 50px;
-  background-color: #f0f0f0;
-  color: black;
+.botonEnviarReporte:hover {
+  background-color: #969696;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.botonEnviarReporte:hover::before {
+  left: 100%;
+}
+
+.overlayFormularioEmail {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
   display: flex;
-  align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  font-weight: bold;
-  font-size: 18px;
-}
-
-.new-section {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-top: 20px;
   align-items: center;
+  z-index: 1000;
 }
 
-/* Sección contenedora de fotos */
-.new-section {
-    display: flex;
-    justify-content: center;
-    gap: 80px;
-    margin: 10px auto;
-    flex-wrap: wrap;
-    padding: 0px;
+.contenedorFormularioEmail {
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 16px;
+  position: relative;
+  max-width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
-/* Foto 1 */
-.foto1 {
-    width: 450px;
-    height: auto;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-right: 600px; /* mueve a la izquierda */
-    border: 2px solid #000000; /* Estilo extra para diferenciar */
+.botonCerrar {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #000000;
+  cursor: pointer;
+  padding: 0.5rem;
+  line-height: 1;
 }
 
-/* Foto 2 */
-.foto2 {
-    width: 300px;
-    height: auto;
-    position: absolute;
-    border-radius: 12px;
-    left: 500px;  /* mueve a la derecha */
-    top: 1135px;    /* mueve hacia abajo */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border: 2px solid #000000; /* Estilo diferente */
-    transform: translate(280px, -385px); /* derecha (+X), arriba (-Y) */
-}
-
-.departmentSelect {
+.selectorDepartamento {
   width: 100%;
   padding: 0.75rem;
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -519,221 +460,297 @@ button:hover {
   padding-right: 2.5rem;
 }
 
-.departmentSelect:hover {
+.selectorDepartamento:hover {
   border-color: rgba(255, 255, 255, 0.4);
   background-color: rgba(0, 0, 0, 0.4);
 }
 
-.departmentSelect:focus {
+.selectorDepartamento:focus {
   outline: none;
   border-color: #ffffff;
   box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-.departmentSelect option {
+.selectorDepartamento option {
   background-color: #1a1a1a;
   color: #ffffff;
   padding: 0.75rem;
 }
 
-.departmentSelect:disabled {
+.selectorDepartamento:disabled {
   background-color: rgba(255, 255, 255, 0.05);
   cursor: not-allowed;
   opacity: 0.7;
 }
 
-.lastEarthquakeSection {
-  margin-top: 3rem;
-  padding: 2rem;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+@media (max-width: 1200px) {
+  .contenedor {
+    padding: 1.5rem;
+  }
+
+  .contenedorGraficos {
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .resumenEstadisticas {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
 }
 
-.lastEarthquakeSection h2 {
-  color: #ffffff;
-  font-size: 1.8rem;
-  margin-bottom: 1.5rem;
-  text-align: center;
-  font-weight: 600;
-}
+@media (max-width: 992px) {
+  .encabezado {
+    margin-top: 56px;
+    padding: 1.5rem;
+  }
 
-.lastEarthquakeCard {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
-  padding: 1rem;
-}
+  .encabezado h1 {
+    font-size: 2rem;
+  }
 
-.lastEarthquakeInfo {
-  background: rgba(255, 255, 255, 0.05);
-  padding: 1.5rem;
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: transform 0.3s ease;
-}
+  .filtros {
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 1.5rem;
+  }
 
-.lastEarthquakeInfo:hover {
-  transform: translateY(-5px);
-  background: rgba(255, 255, 255, 0.08);
-}
+  .grupoFiltro {
+    flex: 1 1 calc(50% - 1rem);
+    min-width: 200px;
+  }
 
-.lastEarthquakeInfo h3 {
-  color: #ffffff;
-  font-size: 1.1rem;
-  margin-bottom: 0.8rem;
-  font-weight: 500;
-}
+  .contenedorGraficos {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.25rem;
+  }
 
-.lastEarthquakeInfo p {
-  color: #ffffff;
-  font-size: 1.2rem;
-  margin: 0.3rem 0;
-  font-weight: 400;
+  .contenedorGrafico {
+    padding: 1.25rem;
+  }
+
+  .tarjetaUltimoSismo {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
 }
 
 @media (max-width: 768px) {
-  .lastEarthquakeCard {
-    grid-template-columns: 1fr;
-  }
-  
-  .lastEarthquakeSection {
+  .contenedor {
     padding: 1rem;
-    margin-top: 2rem;
   }
-  
-  .lastEarthquakeSection h2 {
+
+  .encabezado {
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .encabezado h1 {
+    font-size: 1.75rem;
+  }
+
+  .encabezado h2 {
+    font-size: 1.25rem;
+  }
+
+  .filtros {
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 1.25rem;
+  }
+
+  .grupoFiltro {
+    flex: 1 1 calc(50% - 1rem);
+    min-width: 180px;
+  }
+
+  .grupoFiltro label {
+    font-size: 0.85rem;
+  }
+
+  .grupoFiltro input,
+  .grupoFiltro select {
+    padding: 0.6rem;
+    font-size: 0.9rem;
+  }
+
+  .resumenEstadisticas {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .tarjetaEstadistica {
+    padding: 1.25rem;
+  }
+
+  .tarjetaEstadistica h3 {
+    font-size: 1rem;
+  }
+
+  .tarjetaEstadistica p {
+    font-size: 1.75rem;
+  }
+
+  .contenedorGraficos {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .contenedorGrafico h2 {
+    font-size: 1.1rem;
+  }
+
+  .seccionUltimoSismo {
+    padding: 1.25rem;
+  }
+
+  .seccionUltimoSismo h2 {
+    font-size: 1.25rem;
+  }
+
+  .tarjetaUltimoSismo {
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .infoUltimoSismo {
+    padding: 0.75rem;
+  }
+
+  .infoUltimoSismo h3 {
+    font-size: 0.9rem;
+  }
+
+  .infoUltimoSismo p {
+    font-size: 1rem;
+  }
+
+  .botonEnviarReporte {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .encabezado {
+    padding: 1rem;
+  }
+
+  .encabezado h1 {
     font-size: 1.5rem;
   }
+
+  .encabezado h2 {
+    font-size: 1.1rem;
+  }
+
+  .filtros {
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  .grupoFiltro {
+    flex: 1 1 100%;
+    min-width: 100%;
+  }
+
+  .grupoFiltro label {
+    font-size: 0.8rem;
+  }
+
+  .grupoFiltro input,
+  .grupoFiltro select {
+    padding: 0.5rem;
+    font-size: 0.85rem;
+  }
+
+  .tarjetaEstadistica {
+    padding: 1rem;
+  }
+
+  .tarjetaEstadistica h3 {
+    font-size: 0.9rem;
+  }
+
+  .tarjetaEstadistica p {
+    font-size: 1.5rem;
+  }
+
+  .contenedorGrafico {
+    padding: 1rem;
+  }
+
+  .contenedorGrafico h2 {
+    font-size: 1rem;
+  }
+
+  .seccionUltimoSismo {
+    padding: 1rem;
+  }
+
+  .seccionUltimoSismo h2 {
+    font-size: 1.1rem;
+  }
+
+  .tarjetaUltimoSismo {
+    grid-template-columns: 1fr;
+    padding: 0.75rem;
+  }
+
+  .infoUltimoSismo {
+    padding: 0.5rem;
+  }
+
+  .infoUltimoSismo h3 {
+    font-size: 0.85rem;
+  }
+
+  .infoUltimoSismo p {
+    font-size: 0.9rem;
+  }
+
+  .botonEnviarReporte {
+    padding: 0.6rem 1.25rem;
+    font-size: 0.9rem;
+  }
 }
 
-/* Estilos para inputs de fecha */
-.filterGroup input[type="date"] {
-  width: 100%;
-  padding: 0.75rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 8px;
-  background-color: rgba(0, 0, 0, 0.3);
-  color: #ffffff;
-  font-size: 0.95rem;
-  transition: all 0.2s ease;
-  font-family: 'Poppins', sans-serif;
-  cursor: pointer;
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3e%3cpath d='M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z'/%3e%3c/svg%3e");
-  background-repeat: no-repeat;
-  background-position: right 0.75rem center;
-  background-size: 1.5em;
-  padding-right: 2.5rem;
-}
+@media (max-width: 360px) {
+  .contenedor {
 
-.filterGroup input[type="date"]::-webkit-calendar-picker-indicator {
-  filter: invert(1);
-  opacity: 0.5;
-  cursor: pointer;
-}
+    padding: 0.75rem;
+  }
 
-.filterGroup input[type="date"]::-webkit-datetime-edit {
-  color: #ffffff;
-}
+  .encabezado {
+    padding: 0.75rem;
+  }
 
-.filterGroup input[type="date"]::-webkit-datetime-edit-fields-wrapper {
-  color: #ffffff;
-}
+  .encabezado h1 {
+    font-size: 1.25rem;
+  }
 
-.filterGroup input[type="date"]:hover {
-  border-color: rgba(255, 255, 255, 0.4);
-  background-color: rgba(0, 0, 0, 0.4);
-}
+  .encabezado h2 {
+    font-size: 1rem;
+  }
 
-.filterGroup input[type="date"]:focus {
-  outline: none;
-  border-color: #ffffff;
-  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
-  background-color: rgba(0, 0, 0, 0.5);
-}
+  .filtros {
+    padding: 0.75rem;
+  }
 
-.filterGroup input[type="date"]:disabled {
-  background-color: rgba(255, 255, 255, 0.05);
-  cursor: not-allowed;
-  opacity: 0.7;
-}
+  .grupoFiltro input,
+  .grupoFiltro select {
+    padding: 0.4rem;
+    font-size: 0.8rem;
+  }
 
-/* Estilos para inputs numéricos */
-.filterGroup input[type="number"] {
-  width: 100%;
-  padding: 0.75rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 8px;
-  background-color: rgba(0, 0, 0, 0.3);
-  color: #ffffff;
-  font-size: 0.95rem;
-  transition: all 0.2s ease;
-  font-family: 'Poppins', sans-serif;
-}
+  .tarjetaEstadistica p {
+    font-size: 1.25rem;
+  }
 
-.filterGroup input[type="number"]:hover {
-  border-color: rgba(255, 255, 255, 0.4);
-  background-color: rgba(0, 0, 0, 0.4);
-}
+  .contenedorGrafico {
+    padding: 0.75rem;
+  }
 
-.filterGroup input[type="number"]:focus {
-  outline: none;
-  border-color: #ffffff;
-  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
-  background-color: rgba(0, 0, 0, 0.5);
-}
-
-.filterGroup input[type="number"]:disabled {
-  background-color: rgba(255, 255, 255, 0.05);
-  cursor: not-allowed;
-  opacity: 0.7;
-}
-
-/* Estilizar los botones de incremento/decremento */
-.filterGroup input[type="number"]::-webkit-inner-spin-button,
-.filterGroup input[type="number"]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-  filter: invert(1);
-  opacity: 0.5;
-}
-
-.filterGroup input[type="number"]:hover::-webkit-inner-spin-button,
-.filterGroup input[type="number"]:hover::-webkit-outer-spin-button {
-  opacity: 0.8;
-}
-
-.noDataMessage {
-  text-align: center;
-  padding: 3rem;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 16px;
-  margin: 2rem 0;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-}
-
-.noDataMessage h2 {
-  color: #ffffff;
-  font-size: 1.8rem;
-  margin-bottom: 1rem;
-  font-weight: 600;
-}
-
-.noDataMessage p {
-  color: #ffffff;
-  font-size: 1.2rem;
-  margin: 0.5rem 0;
-  opacity: 0.8;
-}
-
-.noDataMessage p:last-child {
-  font-size: 1rem;
-  opacity: 0.6;
-  margin-top: 1rem;
+  .contenedorGrafico h2 {
+    font-size: 0.9rem;
+  }
 }

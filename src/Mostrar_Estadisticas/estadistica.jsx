@@ -15,6 +15,7 @@ import {
 } from "chart.js";
 import { obtenerSismos, departamentosPeru } from "./apiUSGS";
 import styles from "./estadistica.module.css";
+import EmailForm from "./EmailForm/EmailForm";
 
 // Register ChartJS components
 ChartJS.register(
@@ -33,14 +34,15 @@ ChartJS.register(
 function Estadistica() {
   const [sismos, setSismos] = useState([]);
   const [filtros, setFiltros] = useState({
-    starttime: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+    starttime: '2024-01-01',
     endtime: new Date().toISOString().split('T')[0],
     minMagnitude: 0,
     maxMagnitude: 10,
     departamento: ""
   });
-  const [loading, setLoading] = useState(true);
+  const [cargando, setCargando] = useState(true);
   const [error, setError] = useState(null);
+  const [mostrarFormularioEmail, setMostrarFormularioEmail] = useState(false);
 
   useEffect(() => {
     cargarSismos();
@@ -54,7 +56,7 @@ function Estadistica() {
       console.error("Error al cargar sismos:", error);
       setError("Error al cargar sismos");
     } finally {
-      setLoading(false);
+      setCargando(false);
     }
   };
 
@@ -78,18 +80,14 @@ function Estadistica() {
       const lat = sismo.geometry.coordinates[1];
       const lon = sismo.geometry.coordinates[0];
       
-      // Clasificación más precisa para Perú
       if (lat < -8) {
-        // Sur del Perú
         if (lon < -75) regiones["Costa"]++;
         else regiones["Sierra"]++;
       } else if (lat < -4) {
-        // Centro del Perú
         if (lon < -78) regiones["Costa"]++;
         else if (lon < -74) regiones["Sierra"]++;
         else regiones["Selva"]++;
       } else {
-        // Norte del Perú
         if (lon < -80) regiones["Costa"]++;
         else if (lon < -76) regiones["Sierra"]++;
         else regiones["Selva"]++;
@@ -130,7 +128,7 @@ function Estadistica() {
     return profundidades;
   };
 
-  const handleFiltroChange = (e) => {
+  const manejarCambioFiltro = (e) => {
     const { name, value } = e.target;
     setFiltros(prev => ({
       ...prev,
@@ -140,7 +138,7 @@ function Estadistica() {
 
   const limpiarFiltros = () => {
     setFiltros({
-      starttime: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+      starttime: '2024-01-01',
       endtime: new Date().toISOString().split('T')[0],
       minMagnitude: 0,
       maxMagnitude: 10,
@@ -159,9 +157,13 @@ function Estadistica() {
     datasets: [{
       label: "Sismos por Mes en Perú",
       data: Object.values(datosPorMes),
-      borderColor: "#FF4B2B",
-      backgroundColor: "rgba(255, 75, 43, 0.1)",
+      borderColor: "#1a1a1a",
+      backgroundColor: "rgba(26, 26, 26, 0.1)",
       tension: 0.4,
+      pointBackgroundColor: "#1a1a1a",
+      pointBorderColor: "#ffffff",
+      pointHoverBackgroundColor: "#ffffff",
+      pointHoverBorderColor: "#1a1a1a"
     }],
   };
 
@@ -171,13 +173,20 @@ const barChartData = {
     label: "Sismos por Región en Perú",
     data: Object.values(datosPorRegion),
     backgroundColor: [
-      "rgba(0, 0, 0, 0.9)",        // Negro puro
-      "rgba(31, 41, 55, 0.8)",     // Negro azulado
-      "rgba(55, 65, 81, 0.8)",     // Gris carbón
-      "rgba(75, 85, 99, 0.7)",     // Gris oscuro
-      "rgba(107, 114, 128, 0.7)",  // Gris medio
-      "rgba(156, 163, 175, 0.6)",  // Gris claro
+      "rgba(26, 26, 26, 0.8)",     // Negro puro
+      "rgba(51, 51, 51, 0.8)",     // Gris muy oscuro
+      "rgba(102, 102, 102, 0.8)",  // Gris oscuro
+      "rgba(153, 153, 153, 0.8)",  // Gris medio
+      "rgba(204, 204, 204, 0.8)",  // Gris claro
     ],
+    borderColor: [
+      "rgba(26, 26, 26, 1)",
+      "rgba(51, 51, 51, 1)",
+      "rgba(102, 102, 102, 1)",
+      "rgba(153, 153, 153, 1)",
+      "rgba(204, 204, 204, 1)",
+    ],
+    borderWidth: 1
   }],
 };
 
@@ -186,12 +195,20 @@ const pieChartData = {
   datasets: [{
     data: Object.values(datosPorIntensidad),
     backgroundColor: [
-      "rgba(0, 0, 0, 0.9)",        // Negro puro
-      "rgba(17, 24, 39, 0.8)",     // Negro suave
-      "rgba(55, 65, 81, 0.8)",     // Gris carbón
-      "rgba(107, 114, 128, 0.7)",  // Gris medio
-      "rgba(156, 163, 175, 0.6)",  // Gris claro
+      "rgba(26, 26, 26, 0.8)",     // Negro puro
+      "rgba(51, 51, 51, 0.8)",     // Gris muy oscuro
+      "rgba(102, 102, 102, 0.8)",  // Gris oscuro
+      "rgba(153, 153, 153, 0.8)",  // Gris medio
+      "rgba(204, 204, 204, 0.8)",  // Gris claro
     ],
+    borderColor: [
+      "rgba(26, 26, 26, 1)",
+      "rgba(51, 51, 51, 1)",
+      "rgba(102, 102, 102, 1)",
+      "rgba(153, 153, 153, 1)",
+      "rgba(204, 204, 204, 1)",
+    ],
+    borderWidth: 1
   }],
 };
 
@@ -200,11 +217,18 @@ const doughnutChartData = {
   datasets: [{
     data: Object.values(datosPorProfundidad),
     backgroundColor: [
-      "rgba(0, 0, 0, 0.9)",        // Negro puro
-      "rgba(31, 41, 55, 0.8)",     // Negro azulado
-      "rgba(75, 85, 99, 0.8)",     // Gris oscuro
-      "rgba(107, 114, 128, 0.7)",  // Gris medio
+      "rgba(26, 26, 26, 0.8)",     // Negro puro
+      "rgba(51, 51, 51, 0.8)",     // Gris muy oscuro
+      "rgba(102, 102, 102, 0.8)",  // Gris oscuro
+      "rgba(153, 153, 153, 0.8)",  // Gris medio
     ],
+    borderColor: [
+      "rgba(26, 26, 26, 1)",
+      "rgba(51, 51, 51, 1)",
+      "rgba(102, 102, 102, 1)",
+      "rgba(153, 153, 153, 1)",
+    ],
+    borderWidth: 1
   }],
 };
   const radarChartData = {
@@ -218,9 +242,13 @@ const doughnutChartData = {
         sismos.reduce((acc, sismo) => acc + sismo.properties.mag, 0) / sismos.length,
         sismos.length
       ],
-      backgroundColor: "rgba(255, 75, 43, 0.2)",
-      borderColor: "#FF4B2B",
+      backgroundColor: "rgba(26, 26, 26, 0.2)",
+      borderColor: "#1a1a1a",
       borderWidth: 2,
+      pointBackgroundColor: "#1a1a1a",
+      pointBorderColor: "#ffffff",
+      pointHoverBackgroundColor: "#ffffff",
+      pointHoverBorderColor: "#1a1a1a"
     }],
   };
 
@@ -230,11 +258,18 @@ const doughnutChartData = {
       label: "Distribución Sísmica en Perú",
       data: Object.values(datosPorRegion),
       backgroundColor: [
-        "rgba(0, 0, 0, 0.9)",        // Negro puro
-        "rgba(31, 41, 55, 0.8)",     // Negro azulado
-        "rgba(75, 85, 99, 0.8)",     // Gris oscuro
-        "rgba(107, 114, 128, 0.7)",  // Gris medio
+        "rgba(26, 26, 26, 0.8)",     // Negro puro
+        "rgba(51, 51, 51, 0.8)",     // Gris muy oscuro
+        "rgba(102, 102, 102, 0.8)",  // Gris oscuro
+        "rgba(153, 153, 153, 0.8)",  // Gris medio
       ],
+      borderColor: [
+        "rgba(26, 26, 26, 1)",
+        "rgba(51, 51, 51, 1)",
+        "rgba(102, 102, 102, 1)",
+        "rgba(153, 153, 153, 1)",
+      ],
+      borderWidth: 1
     }],
   };
 
@@ -256,24 +291,89 @@ const doughnutChartData = {
     },
   };
 
+  const prepararDatosParaEmail = () => {
+    if (sismos.length === 0) return null;
+
+    const ultimoSismo = sismos[0];
+    const fecha = new Date(ultimoSismo.properties.time);
+    
+    const datosEmail = {
+      departamento: filtros.departamento || "Todo Perú",
+      fechaInicio: new Date(filtros.starttime).toLocaleDateString('es-ES'),
+      fechaFin: new Date(filtros.endtime).toLocaleDateString('es-ES'),
+      totalSismos: sismos.length,
+      ultimoSismo: {
+        fecha: fecha.toLocaleDateString('es-ES', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        }),
+        hora: fecha.toLocaleTimeString('es-ES', {
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit'
+        }),
+        magnitud: ultimoSismo.properties.mag.toFixed(1),
+        profundidad: ultimoSismo.geometry.coordinates[2].toFixed(2),
+        latitud: ultimoSismo.geometry.coordinates[1].toFixed(4),
+        longitud: ultimoSismo.geometry.coordinates[0].toFixed(4),
+        intensidad: ultimoSismo.properties.mag < 4.0 ? "Leve" : 
+                   ultimoSismo.properties.mag < 6.0 ? "Moderado" : 
+                   ultimoSismo.properties.mag < 7.0 ? "Fuerte" : "Severo",
+        region: (() => {
+          const lat = ultimoSismo.geometry.coordinates[1];
+          const lon = ultimoSismo.geometry.coordinates[0];
+          
+          if (lat < -8) {
+            return lon < -75 ? "Costa" : "Sierra";
+          } else if (lat < -4) {
+            if (lon < -78) return "Costa";
+            if (lon < -74) return "Sierra";
+            return "Selva";
+          } else {
+            if (lon < -80) return "Costa";
+            if (lon < -76) return "Sierra";
+            return "Selva";
+          }
+        })()
+      },
+      estadisticas: {
+        porRegion: datosPorRegion,
+        porIntensidad: datosPorIntensidad,
+        porProfundidad: datosPorProfundidad,
+        porMes: datosPorMes
+      }
+    };
+
+    return datosEmail;
+  };
+
+  const manejarEnviarReporte = () => {
+    setMostrarFormularioEmail(true);
+  };
+
+  const manejarCerrarFormularioEmail = () => {
+    setMostrarFormularioEmail(false);
+  };
+
   return (
     <>
-      <div className={styles.container}>
-        <div className={styles.header}>
+      <div className={styles.contenedor}>
+        <div className={styles.encabezado}>
           <h1>Estadísticas de Sismos en Perú</h1>
           {filtros.departamento && (
             <h2>Departamento: {filtros.departamento}</h2>
           )}
         </div>
 
-        <div className={styles.filters}>
-          <div className={styles.filterGroup}>
+        <div className={styles.filtros}>
+          <div className={styles.grupoFiltro}>
             <label>Departamento</label>
             <select
               name="departamento"
               value={filtros.departamento}
-              onChange={handleFiltroChange}
-              className={styles.departmentSelect}
+              onChange={manejarCambioFiltro}
+              className={styles.selectorDepartamento}
             >
               <option value="">Todo Perú</option>
               {Object.keys(departamentosPeru).sort().map(depto => (
@@ -282,68 +382,68 @@ const doughnutChartData = {
             </select>
           </div>
 
-          <div className={styles.filterGroup}>
+          <div className={styles.grupoFiltro}>
             <label>Fecha Inicio</label>
             <input
               type="date"
               name="starttime"
               value={filtros.starttime}
-              onChange={handleFiltroChange}
+              onChange={manejarCambioFiltro}
             />
           </div>
 
-          <div className={styles.filterGroup}>
+          <div className={styles.grupoFiltro}>
             <label>Fecha Fin</label>
             <input
               type="date"
               name="endtime"
               value={filtros.endtime}
-              onChange={handleFiltroChange}
+              onChange={manejarCambioFiltro}
             />
           </div>
 
-          <div className={styles.filterGroup}>
+          <div className={styles.grupoFiltro}>
             <label>Magnitud Mínima</label>
             <input
               type="number"
               name="minMagnitude"
               value={filtros.minMagnitude}
-              onChange={handleFiltroChange}
+              onChange={manejarCambioFiltro}
               min={0}
               max={10}
               step="0.1"
             />
           </div>
 
-          <div className={styles.filterGroup}>
+          <div className={styles.grupoFiltro}>
             <label>Magnitud Máxima</label>
             <input
               type="number"
               name="maxMagnitude"
               value={filtros.maxMagnitude}
-              onChange={handleFiltroChange}
+              onChange={manejarCambioFiltro}
               min={0}
               max={10}
               step="0.1"
             />
           </div>
 
-          <button className={styles.filterButton} onClick={limpiarFiltros}>
+          <button className={styles.botonFiltro} onClick={limpiarFiltros}>
             Limpiar filtros
           </button>
         </div>
 
-        {loading ? (
-          <div className={styles.loadingMessage}>
+        {cargando ? (
+          <div className={styles.mensajeCargando}>
             <div className={styles.spinner}></div>
             Cargando datos...
           </div>
         ) : error ? (
-          <div className={styles.errorMessage}>
+          <div className={styles.mensajeError}>
             {error}
           </div>
         ) : sismos.length === 0 ? (
-          <div className={styles.noDataMessage}>
+          <div className={styles.mensajeSinDatos}>
             <h2>No se registraron sismos</h2>
             {filtros.departamento && (
               <p>en el departamento de {filtros.departamento}</p>
@@ -352,57 +452,57 @@ const doughnutChartData = {
           </div>
         ) : (
           <>
-            <div className={styles.statsSummary}>
-              <div className={styles.statCard}>
+            <div className={styles.resumenEstadisticas}>
+              <div className={styles.tarjetaEstadistica}>
                 <h3>Total de Sismos</h3>
                 <p>{sismos.length}</p>
               </div>
-              <div className={styles.statCard}>
+              <div className={styles.tarjetaEstadistica}>
                 <h3>Magnitud Promedio</h3>
                 <p>{(sismos.reduce((acc, sismo) => acc + sismo.properties.mag, 0) / sismos.length).toFixed(2)}</p>
               </div>
-              <div className={styles.statCard}>
+              <div className={styles.tarjetaEstadistica}>
                 <h3>Profundidad Promedio</h3>
                 <p>{(sismos.reduce((acc, sismo) => acc + sismo.geometry.coordinates[2], 0) / sismos.length).toFixed(2)} km</p>
               </div>
             </div>
 
-            <div className={styles.chartsContainer}>
-              <div className={styles.chartWrapper}>
+            <div className={styles.contenedorGraficos}>
+              <div className={styles.contenedorGrafico}>
                 <h2>Tendencia Mensual</h2>
                 <Line data={lineChartData} options={chartOptions} />
               </div>
 
-              <div className={styles.chartWrapper}>
+              <div className={styles.contenedorGrafico}>
                 <h2>Distribución por Región</h2>
                 <Bar data={barChartData} options={chartOptions} />
               </div>
 
-              <div className={styles.chartWrapper}>
+              <div className={styles.contenedorGrafico}>
                 <h2>Intensidad de Sismos</h2>
                 <Pie data={pieChartData} options={chartOptions} />
               </div>
 
-              <div className={styles.chartWrapper}>
+              <div className={styles.contenedorGrafico}>
                 <h2>Profundidad de Sismos</h2>
                 <Doughnut data={doughnutChartData} options={chartOptions} />
               </div>
 
-              <div className={styles.chartWrapper}>
+              <div className={styles.contenedorGrafico}>
                 <h2>Características del Sismo</h2>
                 <Radar data={radarChartData} options={chartOptions} />
               </div>
 
-              <div className={styles.chartWrapper}>
+              <div className={styles.contenedorGrafico}>
                 <h2>Distribución Polar de Zonas</h2>
                 <PolarArea data={polarAreaData} options={chartOptions} />
               </div>
             </div>
 
-            <div className={styles.lastEarthquakeSection}>
+            <div className={styles.seccionUltimoSismo}>
               <h2>Último Sismo Registrado</h2>
-              <div className={styles.lastEarthquakeCard}>
-                <div className={styles.lastEarthquakeInfo}>
+              <div className={styles.tarjetaUltimoSismo}>
+                <div className={styles.infoUltimoSismo}>
                   <h3>Fecha y Hora</h3>
                   <p>{new Date(sismos[0].properties.time).toLocaleDateString('es-ES', {
                     year: 'numeric',
@@ -415,26 +515,26 @@ const doughnutChartData = {
                     second: '2-digit'
                   })}</p>
                 </div>
-                <div className={styles.lastEarthquakeInfo}>
+                <div className={styles.infoUltimoSismo}>
                   <h3>Magnitud</h3>
                   <p>{sismos[0].properties.mag.toFixed(1)}</p>
                 </div>
-                <div className={styles.lastEarthquakeInfo}>
+                <div className={styles.infoUltimoSismo}>
                   <h3>Profundidad</h3>
                   <p>{sismos[0].geometry.coordinates[2].toFixed(2)} km</p>
                 </div>
-                <div className={styles.lastEarthquakeInfo}>
+                <div className={styles.infoUltimoSismo}>
                   <h3>Ubicación</h3>
                   <p>Latitud: {sismos[0].geometry.coordinates[1].toFixed(4)}°</p>
                   <p>Longitud: {sismos[0].geometry.coordinates[0].toFixed(4)}°</p>
                 </div>
-                <div className={styles.lastEarthquakeInfo}>
+                <div className={styles.infoUltimoSismo}>
                   <h3>Intensidad</h3>
                   <p>{sismos[0].properties.mag < 4.0 ? "Leve" : 
                       sismos[0].properties.mag < 6.0 ? "Moderado" : 
                       sismos[0].properties.mag < 7.0 ? "Fuerte" : "Severo"}</p>
                 </div>
-                <div className={styles.lastEarthquakeInfo}>
+                <div className={styles.infoUltimoSismo}>
                   <h3>Región</h3>
                   <p>{(() => {
                     const lat = sismos[0].geometry.coordinates[1];
@@ -456,6 +556,31 @@ const doughnutChartData = {
               </div>
             </div>
           </>
+        )}
+
+        {!cargando && !error && sismos.length > 0 && (
+          <div className={styles.botonReporte}>
+            <button onClick={manejarEnviarReporte} className={styles.botonEnviarReporte}>
+              Enviar Reporte por Correo
+            </button>
+          </div>
+        )}
+
+        {mostrarFormularioEmail && (
+          <div className={styles.overlayFormularioEmail}>
+            <div className={styles.contenedorFormularioEmail}>
+              <button 
+                className={styles.botonCerrar}
+                onClick={manejarCerrarFormularioEmail}
+              >
+                ×
+              </button>
+              <EmailForm 
+                datosEstadisticos={prepararDatosParaEmail()} 
+                onClose={manejarCerrarFormularioEmail}
+              />
+            </div>
+          </div>
         )}
       </div>
     </>

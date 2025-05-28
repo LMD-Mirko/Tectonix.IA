@@ -5,8 +5,8 @@ import Inicio from "./inicio/inicio";
 import Estadistica from "./Mostrar_Estadisticas/estadistica"; 
 import Predictiva from "./consulta_predictiva/predictiva";
 import ChatBot from "./Chatbot/Chatbot.jsx";
+import Mapa from "./mapa/mapa.jsx";
 import Error404 from "./Error404/Error.jsx";
-import Email from "./Mostrar_Estadisticas/EmailForm/EmailForm.jsx"; 
 
 function AppWrapper() {
   const location = useLocation();
@@ -23,7 +23,7 @@ function AppWrapper() {
         <Route path="/mapa" element={<Estadistica />} />
         <Route path="/consulta" element={<Predictiva />} />
         <Route path="/chatbot" element={<ChatBot />} />
-        <Route path="/formulario" element={<Email />} />
+        <Route path="/mapac" element={<Mapa />} />
         <Route path="*" element={<Error404 />} />
       </Routes>
     </>
