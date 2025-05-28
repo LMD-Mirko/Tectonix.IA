@@ -40,9 +40,9 @@ const Nav = () => {
     { id: "inicio", label: "Inicio", href: "#inicio", isRoute: false },
     { id: "servicios", label: "Servicios", href: "#servicios", isRoute: false },
     { id: "about", label: "Sobre Nosotros", href: "#about", isRoute: false },
-    { id: "mapa", label: "Mapa Predictivo", href: "/mapa", isRoute: true },
+    { id: "mapa", label: "Gráfico", href: "/mapa", isRoute: true },
     { id: "mapa", label: "Mapa", href: "/mapac", isRoute: true },
-    { id: "consulta", label: "Consulta", href: "/consulta", isRoute: true },
+    { id: "consulta", label: "Predecir", href: "/consulta", isRoute: true },
     { id: "chatbot", label: "TectonixBot", href: "/chatbot", isRoute: true }
     
   ];

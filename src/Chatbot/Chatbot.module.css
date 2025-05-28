@@ -48,8 +48,8 @@
   height: calc(100vh - 140px); /* Optimizado para el espacio disponible */
   min-height: 500px;
   background: #dbd0d0 !important;
-  border-top: 2px solid #00cfff;
-  border-bottom: 2px solid #00cfff;
+  border-top: 2px solid #418b63;
+  border-bottom: 2px solid #1d5038c5;
   border-left: none;
   border-right: none;
   border-radius: 12px !important;
@@ -66,7 +66,7 @@
 /* ===== HEADER DEL CHAT ===== */
 .chatHeader {
   background: #0f0f0f;
-  border-bottom: 1px solid #00cfff;
+  border-bottom: 1px solid #227246;
   padding: 15px 20px;
   display: flex;
   justify-content: space-between;
@@ -330,7 +330,7 @@
 .inputArea {
   padding: 16px 20px;
   background: #0f0f0f;
-  border-top: 1px solid #2a3441;
+  border-top: 2px solid #387259;
   display: flex;
   gap: 12px;
   align-items: flex-end;
