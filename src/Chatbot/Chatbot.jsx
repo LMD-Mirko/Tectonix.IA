@@ -193,36 +193,12 @@ export default function SismoBot() {
     }
   };
 
-  const handleRegresar = () => {
-
-    window.history.back();
-  };
-
   return (
-  <Box className={estilo.chatContainer}>
-    {/* Botón REGRESAR siempre visible por encima de todo */}
-    <Box className={estilo.botonRegresarWrapper}>
-      <button className={estilo.botonRegresar} onClick={handleRegresar}>
-        REGRESAR
-      </button>
-    </Box>
+    <Box className={estilo.chatContainer}>
+      <div className={estilo.seismicOverlay}></div>
+      <div className={estilo.gridBackground}></div>
+      <SeismicBackground />
 
-    <div className={estilo.seismicOverlay}></div>
-    <div className={estilo.gridBackground}></div>
-    <SeismicBackground />
-
-    {/* Centrado absoluto del chat */}
-    <Box
-      sx={{
-        width: '100%',
-        maxWidth: '1200px',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        position: 'relative',
-        zIndex: 1,
-      }}
-    >
       <Paper className={estilo.chatPaper} elevation={3}>
         {/* Header */}
         <Box className={estilo.chatHeader}>
@@ -260,7 +236,7 @@ export default function SismoBot() {
           </Box>
         </Box>
 
-        {/* Chat Mensages*/}
+        {/* Chat Messages */}
         <Box
           ref={chatBodyRef}
           className={estilo.chatBody}
@@ -331,7 +307,5 @@ export default function SismoBot() {
         </Box>
       </Paper>
     </Box>
-  </Box>
-);
-
+  );
 }

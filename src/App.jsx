@@ -11,7 +11,7 @@ import Email from "./Mostrar_Estadisticas/EmailForm/EmailForm.jsx";
 function AppWrapper() {
   const location = useLocation();
 
-  const rutasConNav = ["/", "/mapa", "/consulta"];
+  const rutasConNav = ["/", "/mapa", "/consulta", "/chatbot"];
 
   const ocultarNav = !rutasConNav.includes(location.pathname);
 

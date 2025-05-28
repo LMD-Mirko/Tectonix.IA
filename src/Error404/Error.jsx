@@ -28,7 +28,7 @@ const Error404 = () => {
             type="primary"
             className={styles.backButton}
             onClick={handleVolverInicio} 
-          >
+          >-
             Volver a inicio
           </Button>
         </div>

@@ -1,10 +1,10 @@
 /* ===== CONTENEDOR PRINCIPAL ===== */
 .chatContainer {
   position: fixed;
-  top: 0;
+  top: 70px; /* Ajusta este valor según la altura de tu nav */
   left: 0;
   width: 100vw;
-  height: 100vh;
+  height: calc(100vh - 70px); /* Ajustado para usar toda la altura disponible */
   background: #0a0f1c;
   display: flex;
   justify-content: center;
@@ -21,7 +21,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: 
+  background:
     radial-gradient(circle at 20% 80%, rgba(0, 255, 204, 0.05) 0%, transparent 50%),
     radial-gradient(circle at 80% 20%, rgba(0, 255, 204, 0.03) 0%, transparent 50%);
   pointer-events: none;
@@ -34,7 +34,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: 
+  background-image:
     linear-gradient(rgba(0, 255, 204, 0.02) 1px, transparent 1px),
     linear-gradient(90deg, rgba(0, 255, 204, 0.02) 1px, transparent 1px);
   background-size: 30px 30px;
@@ -42,48 +42,18 @@
   z-index: 0;
 }
 
-/* ===== BOTÓN REGRESAR ===== */
-.botonRegresarWrapper {
-  position: fixed;
-  top: 20px;
-  left: 20px;
-  z-index: 2000;
-}
-
-.botonRegresar {
-  background: linear-gradient(135deg, #ffffff, #e0dfde);
-  border: none;
-  color: rgb(0, 0, 0);
-  padding: 12px 24px;
-  border-radius: 25px;
-  font-weight: 600;
-  font-size: 14px;
-  cursor: pointer;
-  box-shadow: 0 4px 15px rgba(107, 238, 255, 0.4);
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.botonRegresar:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(107, 225, 255, 0.6);
-  background: linear-gradient(135deg, #3be5fc, #6b9fff);
-}
-
 .chatPaper {
   width: 100%;
   max-width: 900px;
-  height: calc(100vh - 40px);
+  height: calc(100vh - 140px); /* Optimizado para el espacio disponible */
   min-height: 500px;
   background: #dbd0d0 !important;
   border-top: 2px solid #00cfff;
   border-bottom: 2px solid #00cfff;
   border-left: none;
   border-right: none;
-
   border-radius: 12px !important;
-  box-shadow: 
+  box-shadow:
     0 20px 40px rgba(255, 0, 179, 0.4),
     0 0 0 1px rgba(0, 255, 204, 0.1);
   display: flex;
@@ -92,7 +62,6 @@
   position: relative;
   z-index: 10;
 }
-
 
 /* ===== HEADER DEL CHAT ===== */
 .chatHeader {
@@ -189,13 +158,12 @@
   flex: 1;
   padding: 20px;
   overflow-y: auto;
-  background-color: #000; /* fondo negro */
-  background-image: radial-gradient(rgba(206, 206, 206, 0.1) 1px, transparent 1px);
+  background-color: #1a1a1a;
+  background-image: radial-gradient(rgba(116, 114, 114, 0.1) 1px, transparent 1px);
   background-size: 20px 20px;
   scroll-behavior: smooth;
   min-height: 0;
 }
-
 
 .chatBody::-webkit-scrollbar {
   width: 4px;
@@ -232,6 +200,7 @@
   }
 }
 
+/* Estilo para mensajes del usuario */
 .userMessage {
   display: flex;
   flex-direction: column;
@@ -239,16 +208,18 @@
 }
 
 .userMessage .messageText {
-  background: linear-gradient(135deg, #0d8e92, #3877e4) !important;
-  color: white !important;
+  background: #3c3a41; /* Color de fondo para mensajes del usuario */
+  color: #ffffff; /* Color de texto para mensajes del usuario */
   padding: 12px 16px;
   border-radius: 18px 18px 4px 18px;
   max-width: 75%;
-  box-shadow: 0 2px 8px rgba(0, 102, 255, 0.3);
+  border: 1px solid #4400ff4d;
   word-wrap: break-word;
   position: relative;
+  box-shadow: 0 2px 8px #4400ff4d;
 }
 
+/* Estilo para mensajes del bot */
 .botMessage {
   display: flex;
   flex-direction: column;
@@ -256,33 +227,32 @@
 }
 
 .botMessage .messageText {
-  background: #5f6266 !important;
-  color: #ffffff !important;
+  background: #161616; /* Color de fondo para mensajes del bot */
+  color: #ffffff; /* Color de texto para mensajes del bot */
   padding: 12px 16px;
   border-radius: 18px 18px 18px 4px;
   max-width: 75%;
-  border: 1px solid #5f6266;
+  border: 1px solid #00aeff4d;
   word-wrap: break-word;
   position: relative;
+  box-shadow: 0 2px 8px #00aeff4d;
 }
 
+/* Estilo común para el texto del mensaje */
 .messageText {
   font-size: 0.9rem !important;
   line-height: 1.4 !important;
   margin: 0 !important;
 }
 
+/* Estilo común para la hora del mensaje */
 .messageTime {
   font-size: 0.7rem !important;
   margin-top: 4px !important;
   opacity: 0.6;
 }
 
-.userMessageTime {
-  color: #a0a8b0 !important;
-}
-
-.botMessageTime {
+.userMessageTime, .botMessageTime {
   color: #a0a8b0 !important;
 }
 
@@ -451,17 +421,17 @@
   .chatContainer {
     padding: 40px;
   }
-  
+
   .chatPaper {
     max-width: 1000px;
-    height: calc(100vh - 80px);
+    height: calc(100vh - 150px);
   }
-  
+
   .messageInput input {
     padding: 14px 18px !important;
     font-size: 1rem !important;
   }
-  
+
   .sendButton {
     padding: 14px 24px !important;
     min-width: 90px !important;
@@ -474,10 +444,10 @@
   .chatContainer {
     padding: 30px;
   }
-  
+
   .chatPaper {
     max-width: 850px;
-    height: calc(100vh - 60px);
+    height: calc(100vh - 130px);
   }
 }
 
@@ -486,36 +456,36 @@
   .chatContainer {
     padding: 20px 15px;
   }
-  
+
   .chatPaper {
-    height: calc(100vh - 40px);
+    height: calc(100vh - 110px);
     border-radius: 8px !important;
   }
-  
+
   .chatHeader {
     padding: 12px 16px;
   }
-  
+
   .chatBody {
     padding: 16px;
   }
-  
+
   .userMessage .messageText,
   .botMessage .messageText {
     max-width: 80%;
     padding: 10px 14px;
   }
-  
+
   .inputArea {
     padding: 12px 16px;
     gap: 10px;
   }
-  
+
   .messageInput input {
     padding: 10px 14px !important;
     font-size: 0.85rem !important;
   }
-  
+
   .sendButton {
     padding: 10px 16px !important;
     min-width: 70px !important;
@@ -527,82 +497,66 @@
 @media (max-width: 480px) {
   .chatContainer {
     padding: 10px 8px;
+    top: 60px; /* Reducido para móviles */
+    height: calc(100vh - 60px);
   }
-  
+
   .chatPaper {
-    height: calc(100vh - 20px);
+    height: calc(100vh - 80px);
     border-radius: 6px !important;
   }
-  
+
   .chatHeader {
     padding: 10px 12px;
   }
-  
+
   .headerTitle {
     font-size: 1rem !important;
   }
-  
+
   .headerSubtitle {
     font-size: 0.7rem !important;
   }
-  
+
   .botAvatar {
     width: 32px !important;
     height: 32px !important;
   }
-  
+
   .chatBody {
     padding: 12px;
   }
-  
+
   .userMessage .messageText,
   .botMessage .messageText {
     max-width: 85%;
     padding: 10px 12px;
     font-size: 0.85rem !important;
   }
-  
+
   .inputArea {
     padding: 10px 12px;
     gap: 8px;
   }
-  
+
   .messageInput input {
     padding: 10px 12px !important;
     font-size: 0.85rem !important;
   }
-  
+
   .sendButton {
     padding: 10px 14px !important;
     min-width: 65px !important;
     font-size: 0.75rem !important;
   }
-  
+
   .suggestionChipsContainer {
     gap: 6px;
   }
-  
+
   .suggestionChip {
     font-size: 0.7rem !important;
     padding: 4px 8px !important;
-  }
-}
-
-/* Móviles muy pequeños (hasta 360px) */
-@media (max-width: 360px) {
-  .chatContainer {
-    padding: 8px 4px;
-  }
-  
-  .inputArea {
-    flex-direction: column;
-    gap: 8px;
-  }
-  
-  .sendButton {
-    width: 100% !important;
-    min-width: unset !important;
-    max-width: unset !important;
   }
 }
 
