@@ -11,7 +11,7 @@ import Error404 from "./Error404/Error.jsx";
 function AppWrapper() {
   const location = useLocation();
 
-  const rutasConNav = ["/", "/mapa", "/consulta"];
+  const rutasConNav = ["/", "/mapa", "/consulta", "/chatbot"];
 
   const ocultarNav = !rutasConNav.includes(location.pathname);
 
