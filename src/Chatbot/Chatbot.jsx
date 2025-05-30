@@ -4,10 +4,46 @@ import SendIcon from '@mui/icons-material/Send';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import WavesIcon from '@mui/icons-material/Waves';
 import axios from 'axios';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import estilo from './Chatbot.module.css';
 import SeismicBackground from '../movimiento/AnimatedBackground';
 
-const API_URL = import.meta.env.VITE_API_URL || 'https://web-production-dd640.up.railway.app/api';
+// Cambiamos la URL de la API a la local
+const API_URL = 'https://web-production-dd640.up.railway.app/api/chat';
+
+// Función mejorada para formatear el texto: maneja saltos de línea y negrita, creando bloques
+const formatearTextoConEstilo = (texto) => {
+  if (!texto) return null;
+
+  // Dividir el texto en bloques lógicos por saltos de línea (maneja múltiples saltos como separadores de párrafo)
+  const bloques = texto.split('\n');
+
+  return bloques.map((bloque, bloqueIndex) => {
+    // Para cada bloque, procesar texto en negrita dentro de él
+    const partes = bloque.split(/(\*{2}.*?\*{2})/g); // Expresión regular para encontrar **texto**
+
+    return (
+      // Envolvemos cada bloque en un div con clase para control de espaciado
+      <div key={bloqueIndex} className={estilo.textBlock}>
+        {partes.map((parte, parteIndex) => {
+          if (parte.startsWith('**') && parte.endsWith('**')) {
+            // Es texto en negrita
+            const textoNegrita = parte.slice(2, -2);
+            return (
+              <span key={parteIndex} className={estilo.boldText}>
+                {textoNegrita}
+              </span>
+            );
+          } else {
+            // Es texto normal
+            return parte;
+          }
+        })}
+      </div>
+    );
+  });
+};
 
 export default function SismoBot() {
   const [mensajeUsuario, setMensajeUsuario] = useState('');
@@ -94,7 +130,7 @@ export default function SismoBot() {
         ...prevMensajes,
         { 
           tipo: 'ia', 
-          texto: response.data.respuesta,
+          texto: response.data.respuesta || response.data.mensaje, // Adaptado para ambas posibles respuestas
           hora: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
         },
       ]);
@@ -118,7 +154,7 @@ export default function SismoBot() {
             mensajeError = 'La respuesta está tomando demasiado tiempo. Por favor, intenta con una pregunta más corta.';
             break;
           default:
-            mensajeError = `Error ${error.response.status}: ${error.response.data.mensaje || 'Error desconocido'}`;
+            mensajeError = `Error ${error.response.status}: ${error.response.data?.mensaje || 'Error desconocido'}`;
         }
       }
       
@@ -146,7 +182,7 @@ export default function SismoBot() {
       setMensajes([
         {
           tipo: 'ia',
-          texto: response.data.respuesta || '¡Conversación reiniciada! ¿En qué puedo ayudarte con información sísmica?',
+          texto: response.data.respuesta || response.data.mensaje || '¡Conversación reiniciada! ¿En qué puedo ayudarte con información sísmica?',
           hora: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
         },
       ]);
@@ -246,9 +282,9 @@ export default function SismoBot() {
               key={index}
               className={`${estilo.messageBubble} ${mensaje.tipo === 'usuario' ? estilo.userMessage : estilo.botMessage}`}
             >
-              <Typography variant="body1" className={estilo.messageText}>
-                {mensaje.texto}
-              </Typography>
+              <Box className={estilo.messageText}>
+                {formatearTextoConEstilo(mensaje.texto)}
+              </Box>
               <Typography
                 variant="caption"
                 className={`${estilo.messageTime} ${mensaje.tipo === 'usuario' ? estilo.userMessageTime : estilo.botMessageTime}`}
