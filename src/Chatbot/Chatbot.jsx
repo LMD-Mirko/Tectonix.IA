@@ -10,7 +10,7 @@ import estilo from './Chatbot.module.css';
 import SeismicBackground from '../movimiento/AnimatedBackground';
 
 // Cambiamos la URL de la API a la local
-const API_URL = 'https://web-production-dd640.up.railway.app/api/chat';
+const API_URL = 'http://localhost:3002/api';
 
 // Función mejorada para formatear el texto: maneja saltos de línea y negrita, creando bloques
 const formatearTextoConEstilo = (texto) => {
