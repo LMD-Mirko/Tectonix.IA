@@ -9,48 +9,15 @@ import remarkGfm from 'remark-gfm';
 import estilo from './Chatbot.module.css';
 import SeismicBackground from '../movimiento/AnimatedBackground';
 
-// Cambiamos la URL de la API a la local
-const API_URL = 'http://localhost:3002/api';
-
-// Función mejorada para formatear el texto: maneja saltos de línea y negrita, creando bloques
-const formatearTextoConEstilo = (texto) => {
-  if (!texto) return null;
-
-  // Dividir el texto en bloques lógicos por saltos de línea (maneja múltiples saltos como separadores de párrafo)
-  const bloques = texto.split('\n');
-
-  return bloques.map((bloque, bloqueIndex) => {
-    // Para cada bloque, procesar texto en negrita dentro de él
-    const partes = bloque.split(/(\*{2}.*?\*{2})/g); // Expresión regular para encontrar **texto**
-
-    return (
-      // Envolvemos cada bloque en un div con clase para control de espaciado
-      <div key={bloqueIndex} className={estilo.textBlock}>
-        {partes.map((parte, parteIndex) => {
-          if (parte.startsWith('**') && parte.endsWith('**')) {
-            // Es texto en negrita
-            const textoNegrita = parte.slice(2, -2);
-            return (
-              <span key={parteIndex} className={estilo.boldText}>
-                {textoNegrita}
-              </span>
-            );
-          } else {
-            // Es texto normal
-            return parte;
-          }
-        })}
-      </div>
-    );
-  });
-};
+// URL de tu API local
+const API_URL = 'http://localhost:3001/api';
 
 export default function SismoBot() {
   const [mensajeUsuario, setMensajeUsuario] = useState('');
   const [mensajes, setMensajes] = useState([
     {
       tipo: 'ia',
-      texto: '¡Hola! Soy TectonixBot, tu asistente virtual para información sobre sismos y terremotos. ¿En qué puedo ayudarte?',
+      texto: '## 🌍 SismoBot Iniciado\n\n¡Hola! Soy **SismoBot**, tu asistente virtual especializado en información sobre **sismos** y **terremotos**.\n\n¿En qué puedo ayudarte hoy?',
       hora: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     },
   ]);
@@ -75,11 +42,12 @@ export default function SismoBot() {
   useEffect(() => {
     const verificarServidor = async () => {
       try {
-        const response = await axios.get(`${API_URL}/status`);
-        setErrorConexion(!response.data.apiConectada);
+        // Intentamos hacer una petición simple para verificar si el servidor está activo
+        const response = await axios.get(`${API_URL}/status`, { timeout: 5000 });
+        setErrorConexion(false);
         setEstadoServidor({ 
-          status: response.data.status, 
-          mensaje: response.data.apiConectada ? 'Conectado' : 'API desconectada'
+          status: 'conectado', 
+          mensaje: 'Conectado'
         });
       } catch (error) {
         console.error('Error al verificar estado del servidor:', error);
@@ -92,7 +60,7 @@ export default function SismoBot() {
     };
     
     verificarServidor();
-    const intervalo = setInterval(verificarServidor, 60000);
+    const intervalo = setInterval(verificarServidor, 30000); // Verificar cada 30 segundos
     
     return () => clearInterval(intervalo);
   }, []);
@@ -116,45 +84,54 @@ export default function SismoBot() {
     setCargando(true);
     
     const mensajeParaEnviar = mensajeUsuario.trim();
-    
     setMensajeUsuario('');
 
     try {
+      // Usar tu endpoint de chat
       const response = await axios.post(`${API_URL}/chat`, {
         mensaje: mensajeParaEnviar,
       }, {
-        timeout: 30000 
+        timeout: 30000,
+        headers: {
+          'Content-Type': 'application/json'
+        }
       });
 
+      // Tu API devuelve la respuesta en formato Markdown
+      const respuestaIA = response.data.respuesta || response.data.mensaje || response.data;
+      
       setMensajes((prevMensajes) => [
         ...prevMensajes,
         { 
           tipo: 'ia', 
-          texto: response.data.respuesta || response.data.mensaje, // Adaptado para ambas posibles respuestas
+          texto: respuestaIA,
           hora: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
         },
       ]);
     } catch (error) {
       console.error('Error al obtener la respuesta:', error);
       
-      let mensajeError = 'Lo siento, hubo un error al procesar tu solicitud.';
+      let mensajeError = '## 🔧 Error de Conexión\n\nLo siento, hubo un **error** al procesar tu solicitud.';
       
       if (error.code === 'ECONNREFUSED' || error.code === 'ECONNABORTED') {
-        mensajeError = 'No puedo conectarme al servidor. ¿El servidor está ejecutándose?';
+        mensajeError = '## 🔌 Servidor Desconectado\n\nNo puedo conectarme al servidor. ¿El **servidor** está ejecutándose?';
         setErrorConexion(true);
       } else if (error.response) {
         switch(error.response.status) {
           case 500:
-            mensajeError = 'Hay un problema con el servicio de IA. El equipo técnico ha sido notificado.';
+            mensajeError = '## ⚠️ Error del Servidor\n\nHay un **problema** con el servicio de IA. El equipo técnico ha sido notificado.';
             break;
           case 503:
-            mensajeError = 'El servicio de IA no está disponible en este momento. Por favor, intenta más tarde.';
+            mensajeError = '## 🚫 Servicio No Disponible\n\nEl servicio de IA **no está disponible** en este momento. Por favor, intenta más tarde.';
             break;
           case 504:
-            mensajeError = 'La respuesta está tomando demasiado tiempo. Por favor, intenta con una pregunta más corta.';
+            mensajeError = '## ⏱️ Tiempo Agotado\n\nLa respuesta está tomando **demasiado tiempo**. Por favor, intenta con una pregunta más corta.';
+            break;
+          case 429:
+            mensajeError = '## ⚠️ Servicio Saturado\n\nEstamos experimentando **mucho tráfico** en este momento.\n\n🕐 Por favor, **intenta de nuevo** en unos minutos.';
             break;
           default:
-            mensajeError = `Error ${error.response.status}: ${error.response.data?.mensaje || 'Error desconocido'}`;
+            mensajeError = `## ❌ Error ${error.response.status}\n\n${error.response.data?.mensaje || 'Error desconocido'}`;
         }
       }
       
@@ -177,12 +154,20 @@ export default function SismoBot() {
 
   const reiniciarChat = async () => {
     try {
-      const response = await axios.post(`${API_URL}/chat/reiniciar`);
+      // Usar tu endpoint de reiniciar
+      const response = await axios.post(`${API_URL}/chat/reiniciar`, {}, {
+        timeout: 10000,
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      const mensajeReinicio = response.data.respuesta || response.data.mensaje || response.data || '## 🌍 Conversación Reiniciada\n\nSoy **SismoBot**. ¿Qué necesitas saber sobre sismos?';
       
       setMensajes([
         {
           tipo: 'ia',
-          texto: response.data.respuesta || response.data.mensaje || '¡Conversación reiniciada! ¿En qué puedo ayudarte con información sísmica?',
+          texto: mensajeReinicio,
           hora: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
         },
       ]);
@@ -190,13 +175,12 @@ export default function SismoBot() {
       await verificarEstadoServidor();
     } catch (error) {
       console.error('Error al reiniciar chat:', error);
-      setMensajes((prevMensajes) => [
-        ...prevMensajes,
-        { 
-          tipo: 'ia', 
-          texto: 'Hubo un problema al reiniciar la conversación.', 
+      setMensajes([
+        {
+          tipo: 'ia',
+          texto: '## ❌ Error al Reiniciar\n\nHubo un **problema** al reiniciar la conversación.',
           esError: true,
-          hora: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) 
+          hora: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
         },
       ]);
     }
@@ -204,9 +188,9 @@ export default function SismoBot() {
 
   const verificarEstadoServidor = async () => {
     try {
-      const response = await axios.get(`${API_URL}/status`);
-      setErrorConexion(!response.data.apiConectada);
-      return response.data.apiConectada;
+      const response = await axios.get(`${API_URL}/status`, { timeout: 5000 });
+      setErrorConexion(false);
+      return true;
     } catch (error) {
       console.error('Error al verificar estado:', error);
       setErrorConexion(true);
@@ -217,9 +201,9 @@ export default function SismoBot() {
   const sugerencias = [
     "Zonas sísmicas en Perú",
     "Preparación ante terremotos",
-    "Últimos sismos registrados en Perú",
+    "Últimos sismos registrados",
     "¿Cómo se forman los terremotos?",
-    "¿Cómo actuar durante un terremoto?"
+    "¿Cómo actuar durante un sismo?"
   ];
 
   const usarSugerencia = (sugerencia) => {
@@ -244,10 +228,10 @@ export default function SismoBot() {
             </Avatar>
             <Box>
               <Typography variant="h6" component="h1" className={estilo.headerTitle}>
-                TectonixBot
+                SismoBot
               </Typography>
               <Typography variant="body2" className={estilo.headerSubtitle}>
-                Sistema de monitoreo sísmico
+                Asistente de información sísmica
               </Typography>
             </Box>
           </Box>
@@ -266,6 +250,7 @@ export default function SismoBot() {
               color="inherit"
               size="small"
               className={estilo.resetButton}
+              title="Reiniciar conversación"
             >
               <RestartAltIcon />
             </IconButton>
@@ -283,7 +268,39 @@ export default function SismoBot() {
               className={`${estilo.messageBubble} ${mensaje.tipo === 'usuario' ? estilo.userMessage : estilo.botMessage}`}
             >
               <Box className={estilo.messageText}>
-                {formatearTextoConEstilo(mensaje.texto)}
+                <div className={estilo.markdownContent}>
+                  <ReactMarkdown 
+                    remarkPlugins={[remarkGfm]}
+                    components={{
+                      // Personalizar componentes para que respeten los estilos del CSS
+                      p: ({node, children}) => <p className={estilo.messageParagraph}>{children}</p>,
+                      strong: ({node, children}) => <strong className={estilo.boldText}>{children}</strong>,
+                      h1: ({node, children}) => <h1 style={{fontSize: '1rem', marginBottom: '0.5em', color: '#00ffcc'}}>{children}</h1>,
+                      h2: ({node, children}) => <h2 style={{fontSize: '1rem', marginBottom: '0.5em', color: '#00ffcc'}}>{children}</h2>,
+                      h3: ({node, children}) => <h3 style={{fontSize: '1rem', marginBottom: '0.5em', color: '#00ffcc'}}>{children}</h3>,
+                      ul: ({node, children}) => <ul style={{marginLeft: '1em', marginBottom: '0.5em'}}>{children}</ul>,
+                      ol: ({node, children}) => <ol style={{marginLeft: '1em', marginBottom: '0.5em'}}>{children}</ol>,
+                      li: ({node, children}) => <li style={{marginBottom: '0.3em', color: 'inherit'}}>{children}</li>,
+                      code: ({node, inline, children}) => 
+                        inline ? 
+                        <code style={{
+                          backgroundColor: 'rgba(0, 255, 204, 0.1)',
+                          padding: '2px 4px',
+                          borderRadius: '4px',
+                          fontSize: '0.85em'
+                        }}>{children}</code> :
+                        <pre style={{
+                          backgroundColor: '#0f0f0f',
+                          padding: '1em',
+                          borderRadius: '8px',
+                          overflow: 'auto',
+                          margin: '1em 0'
+                        }}><code>{children}</code></pre>
+                    }}
+                  >
+                    {mensaje.texto}
+                  </ReactMarkdown>
+                </div>
               </Box>
               <Typography
                 variant="caption"
@@ -330,6 +347,8 @@ export default function SismoBot() {
             disabled={errorConexion || cargando}
             size="small"
             className={estilo.messageInput}
+            multiline
+            maxRows={3}
           />
           <Button
             variant="contained"

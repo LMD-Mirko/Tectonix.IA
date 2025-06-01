@@ -410,67 +410,77 @@
 }
 
 .suggestionChip:hover {
-  background: rgba(0, 255, 204, 0.1) !important;
+  background: rgba(0, 255, 204, 0) !important;
   color: #00ffcc !important;
   border-color: #00ffcc !important;
   transform: translateY(-1px);
 }
 
-/* ===== ÁREA DE INPUT ===== */
+/* ===== ÁREA DE INPUT MEJORADA CON ESPECIFICIDAD FORZADA ===== */
 .inputArea {
-  padding: 16px 20px;
-  background: #0f0f0f;
-  border-top: 2px solid #387259;
-  display: flex;
-  gap: 12px;
-  align-items: flex-end;
-  flex-shrink: 0;
+  padding: 16px 20px !important;
+  background: rgba(15, 23, 30, 0.95) !important;
+  border-top: 2px solid rgba(56, 114, 89, 0.7) !important;
+  display: flex !important;
+  gap: 12px !important;
+  align-items: flex-end !important;
+  flex-shrink: 0 !important;
+  backdrop-filter: blur(8px) !important;
 }
 
-.messageInput {
-  flex: 1;
-  min-width: 0;
-}
-
-.messageInput .MuiOutlinedInput-root {
-  background: #2a3441 !important;
-  border-radius: 20px !important;
+/* Selector más específico para el input */
+.inputArea .messageInput {
+  flex: 1 !important;
+  min-width: 0 !important;
+  background: rgba(255, 255, 255, 0.12) !important;
+  border-radius: 12px !important;
   transition: all 0.3s ease !important;
-  color: #e1e5e9 !important;
 }
 
-.messageInput .MuiOutlinedInput-root:hover {
-  background: #2a3441 !important;
-  box-shadow: 0 0 0 1px rgba(0, 255, 204, 0.3) !important;
+/* Selector anidado para forzar estilos */
+.inputArea .messageInput .MuiOutlinedInput-root {
+  color: #f0f0f0 !important;
 }
 
-.messageInput .MuiOutlinedInput-root.Mui-focused {
-  background: #2a3441 !important;
-  box-shadow: 0 0 0 2px rgba(0, 255, 204, 0.5) !important;
+.inputArea .messageInput .MuiOutlinedInput-notchedOutline {
+  border: 1px solid rgba(56, 114, 89, 0.3) !important;
+  transition: border-color 0.3s ease !important;
 }
 
-.messageInput .MuiOutlinedInput-root fieldset {
-  border-color: #3a4651 !important;
+/* Estados interactivos */
+.inputArea .messageInput:hover .MuiOutlinedInput-notchedOutline {
+  border-color: rgba(56, 114, 89, 0.5) !important;
 }
 
-.messageInput .MuiOutlinedInput-root:hover fieldset {
-  border-color: rgba(0, 255, 204, 0.5) !important;
+.inputArea .messageInput .Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: #387259 !important;
+  box-shadow: 0 0 0 2px rgba(56, 114, 89, 0.2) !important;
 }
 
-.messageInput .MuiOutlinedInput-root.Mui-focused fieldset {
-  border-color: #00ffcc !important;
-  border-width: 1px !important;
+/* Placeholder y texto */
+.inputArea .messageInput .MuiInputLabel-root,
+.inputArea .messageInput .MuiInputBase-input::placeholder {
+  color: rgba(200, 200, 200, 0.6) !important;
 }
 
-.messageInput input {
+.inputArea .messageInput .MuiInputBase-input::selection {
+  background: rgba(56, 114, 89, 0.5) !important;
+  color: white !important;
+}
+
+/* Textarea */
+.inputArea .messageInput .MuiInputBase-multiline {
   padding: 12px 16px !important;
-  font-size: 0.9rem !important;
-  color: #ffffff !important;
+  line-height: 1.5 !important;
 }
 
-.messageInput input::placeholder {
-  color: #806b6b !important;
-  font-style: normal;
+/* Botón */
+.inputArea .sendButton {
+  height: 48px !important;
+  margin-bottom: 4px !important;
+  border-radius: 12px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.5px !important;
 }
 
 .sendButton {
