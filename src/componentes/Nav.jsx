@@ -122,7 +122,7 @@ const Nav = () => {
 
         <div className={styles.navActions}>
           <a
-            href="https://github.com/your-repo"
+            href="https://github.com/LMD-Mirko/Tectonix.IA"
             target="_blank"
             rel="noopener noreferrer"
             className={styles.githubLink}
