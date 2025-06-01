@@ -40,7 +40,8 @@ export const departamentosPeru = {
   
   // Función para procesar los datos del IGP
   const procesarDatosIGP = (sismosData) => {
-    return sismosData.map(sismo => {
+    // Primero procesamos todos los sismos
+    const sismosProcesados = sismosData.map(sismo => {
       try {
         const fechaHora = new Date(sismo.fecha || sismo.fechaLocal);
         
@@ -48,6 +49,7 @@ export const departamentosPeru = {
           id: sismo.id || `IGP-${fechaHora.getTime()}`,
           fechaLocal: fechaHora.toLocaleDateString('es-PE').replace(/\//g, '-'),
           horaLocal: fechaHora.toLocaleTimeString('es-PE'),
+          fechaHora: fechaHora, // Añadimos la fecha completa para ordenamiento
           latitud: sismo.latitud,
           longitud: sismo.longitud,
           profundidad: sismo.profundidad,
@@ -62,51 +64,165 @@ export const departamentosPeru = {
         return null;
       }
     }).filter(sismo => sismo !== null);
+
+    // Agrupamos los sismos por departamento
+    const sismosPorDepartamento = {};
+    sismosProcesados.forEach(sismo => {
+      if (!sismosPorDepartamento[sismo.departamento]) {
+        sismosPorDepartamento[sismo.departamento] = [];
+      }
+      sismosPorDepartamento[sismo.departamento].push(sismo);
+    });
+
+    // Ordenamos los sismos de cada departamento por fecha y tomamos los últimos 3
+    Object.keys(sismosPorDepartamento).forEach(depto => {
+      sismosPorDepartamento[depto].sort((a, b) => b.fechaHora - a.fechaHora);
+      sismosPorDepartamento[depto] = sismosPorDepartamento[depto].slice(0, 3);
+    });
+
+    // Aplanamos el resultado
+    return Object.values(sismosPorDepartamento).flat();
   };
   
   // Función para obtener datos de respaldo
   const obtenerDatosRespaldo = () => {
-    return [
-      {
-        id: 'IGP2024052801',
-        fechaLocal: '28-05-2024',
-        horaLocal: '14:23:15',
-        latitud: -12.0464,
-        longitud: -77.0428,
-        profundidad: 35.2,
-        magnitud: 4.2,
-        ubicacion: '8 km al SO de Mala, Lima',
-        departamento: 'Lima',
-        intensidad: 'III',
-        estado: 'Automático'
-      },
-      {
-        id: 'IGP2024052802',
-        fechaLocal: '28-05-2024',
-        horaLocal: '12:15:30',
-        latitud: -13.1631,
-        longitud: -72.5450,
-        profundidad: 42.5,
-        magnitud: 3.8,
-        ubicacion: '15 km al NE de Machu Picchu, Cusco',
-        departamento: 'Cusco',
-        intensidad: 'II',
-        estado: 'Automático'
-      },
-      {
-        id: 'IGP2024052803',
-        fechaLocal: '27-05-2024',
-        horaLocal: '08:45:30',
-        latitud: -16.4090,
-        longitud: -71.5375,
-        profundidad: 87.5,
-        magnitud: 5.1,
-        ubicacion: '15 km al NE de Arequipa',
-        departamento: 'Arequipa',
-        intensidad: 'IV',
-        estado: 'Revisado'
-      }
-    ];
+    const datosRespaldo = {
+      'Lima': [
+        {
+          id: 'IGP2024052801',
+          fechaLocal: '28-05-2024',
+          horaLocal: '14:23:15',
+          fechaHora: new Date('2024-05-28T14:23:15'),
+          latitud: -12.0464,
+          longitud: -77.0428,
+          profundidad: 35.2,
+          magnitud: 4.2,
+          ubicacion: '8 km al SO de Mala, Lima',
+          departamento: 'Lima',
+          intensidad: 'III',
+          estado: 'Automático'
+        },
+        {
+          id: 'IGP2024052802',
+          fechaLocal: '28-05-2024',
+          horaLocal: '12:15:30',
+          fechaHora: new Date('2024-05-28T12:15:30'),
+          latitud: -12.0464,
+          longitud: -77.0428,
+          profundidad: 28.5,
+          magnitud: 3.8,
+          ubicacion: '5 km al NE de Lima',
+          departamento: 'Lima',
+          intensidad: 'II',
+          estado: 'Automático'
+        },
+        {
+          id: 'IGP2024052803',
+          fechaLocal: '28-05-2024',
+          horaLocal: '10:45:30',
+          fechaHora: new Date('2024-05-28T10:45:30'),
+          latitud: -12.0464,
+          longitud: -77.0428,
+          profundidad: 42.1,
+          magnitud: 4.5,
+          ubicacion: '12 km al O de Lima',
+          departamento: 'Lima',
+          intensidad: 'IV',
+          estado: 'Revisado'
+        }
+      ],
+      'Arequipa': [
+        {
+          id: 'IGP2024052804',
+          fechaLocal: '28-05-2024',
+          horaLocal: '13:20:15',
+          fechaHora: new Date('2024-05-28T13:20:15'),
+          latitud: -16.4090,
+          longitud: -71.5375,
+          profundidad: 87.5,
+          magnitud: 5.1,
+          ubicacion: '15 km al NE de Arequipa',
+          departamento: 'Arequipa',
+          intensidad: 'IV',
+          estado: 'Revisado'
+        },
+        {
+          id: 'IGP2024052805',
+          fechaLocal: '28-05-2024',
+          horaLocal: '11:15:30',
+          fechaHora: new Date('2024-05-28T11:15:30'),
+          latitud: -16.4090,
+          longitud: -71.5375,
+          profundidad: 65.2,
+          magnitud: 4.8,
+          ubicacion: '10 km al SO de Arequipa',
+          departamento: 'Arequipa',
+          intensidad: 'III',
+          estado: 'Automático'
+        },
+        {
+          id: 'IGP2024052806',
+          fechaLocal: '28-05-2024',
+          horaLocal: '09:45:30',
+          fechaHora: new Date('2024-05-28T09:45:30'),
+          latitud: -16.4090,
+          longitud: -71.5375,
+          profundidad: 45.8,
+          magnitud: 4.2,
+          ubicacion: '8 km al E de Arequipa',
+          departamento: 'Arequipa',
+          intensidad: 'III',
+          estado: 'Automático'
+        }
+      ],
+      'Cusco': [
+        {
+          id: 'IGP2024052807',
+          fechaLocal: '28-05-2024',
+          horaLocal: '12:30:15',
+          fechaHora: new Date('2024-05-28T12:30:15'),
+          latitud: -13.1631,
+          longitud: -72.5450,
+          profundidad: 42.5,
+          magnitud: 3.8,
+          ubicacion: '15 km al NE de Machu Picchu',
+          departamento: 'Cusco',
+          intensidad: 'II',
+          estado: 'Automático'
+        },
+        {
+          id: 'IGP2024052808',
+          fechaLocal: '28-05-2024',
+          horaLocal: '10:20:30',
+          fechaHora: new Date('2024-05-28T10:20:30'),
+          latitud: -13.1631,
+          longitud: -72.5450,
+          profundidad: 35.8,
+          magnitud: 3.5,
+          ubicacion: '12 km al SO de Cusco',
+          departamento: 'Cusco',
+          intensidad: 'II',
+          estado: 'Automático'
+        },
+        {
+          id: 'IGP2024052809',
+          fechaLocal: '28-05-2024',
+          horaLocal: '08:15:30',
+          fechaHora: new Date('2024-05-28T08:15:30'),
+          latitud: -13.1631,
+          longitud: -72.5450,
+          profundidad: 28.4,
+          magnitud: 3.2,
+          ubicacion: '8 km al E de Cusco',
+          departamento: 'Cusco',
+          intensidad: 'II',
+          estado: 'Automático'
+        }
+      ]
+    };
+
+    // Aplanamos el resultado
+    return Object.values(datosRespaldo).flat();
   };
   
   // Función principal para obtener sismos del IGP
