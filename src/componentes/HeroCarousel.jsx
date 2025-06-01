@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { CaretLeft, CaretRight } from "phosphor-react";
 import styles from "./HeroCarousel.module.css";
-import mapaImg from "../inicio/img/mappa.png";
-import mapaImg2 from "../inicio/img/placaas.jpg";
-import mapaImg3 from "../inicio/img/placaasd.jpg";
-
+import mapaImg from "../inicio/img/landscape-lights-sea-Italy-night-water-23628-wallhere.com.jpg";
+import mapaImg2 from "../inicio/img/dario-bronnimann-CpIEyqdwygY-unsplash.jpg";
+import mapaImg3 from "../inicio/img/nastya-dulhiier-hTqezq8WXR8-unsplash (1).jpg";
+import educacionImg from "../inicio/img/kamran-abdullayev-okkwqpKX2qw-unsplash.jpg";
+import riesgoImg from "../inicio/img/mariola-grobelska-KFQPK9Pow5k-unsplash.jpg";
+import sensoresImg from "../inicio/img/javier-miranda-nc1zsYGkLFA-unsplash.jpg";
 const slides = [
   {
     title: "Predicción Sísmica",
@@ -27,7 +29,29 @@ const slides = [
       "Utilizamos algoritmos de última generación para procesar y analizar datos sísmicos.",
     image: mapaImg3,
   },
+  {
+    title: "Educación y Prevención",
+    subtitle: "Infórmate y prepárate ante un sismo",
+    description:
+      "Accede a guías prácticas, simulacros y recursos para estar listo ante cualquier emergencia.",
+    image: educacionImg,
+  },
+  {
+    title: "Mapa de Riesgos",
+    subtitle: "Conoce las zonas más vulnerables",
+    description:
+      "Consulta mapas de riesgo sísmico detallados por regiones y planifica mejor tu seguridad.",
+    image: riesgoImg,
+  },
+  {
+    title: "Red de Sensores",
+    subtitle: "Miles de sensores conectados al instante",
+    description:
+      "Detectamos movimientos sísmicos en segundos gracias a una red de monitoreo distribuida.",
+    image: sensoresImg,
+  },
 ];
+
 
 const HeroCarousel = () => {
   const [currentSlide, setCurrentSlide] = useState(0);

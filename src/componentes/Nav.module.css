@@ -1,20 +1,40 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --nav-bg-light: rgba(255, 255, 255, 0.98);
+  --nav-bg-dark: rgba(0, 0, 0, 0.98);
+  --text-light: #333;
+  --text-dark: #fff;
+  --accent-light: #000;
+  --accent-dark: #fff;
+  --border-light: rgba(0, 0, 0, 0.1);
+  --border-dark: rgba(255, 255, 255, 0.1);
+  --shadow-light: rgba(0, 0, 0, 0.1);
+  --shadow-dark: rgba(0, 0, 0, 0.3);
+  --hover-bg-light: rgba(0, 0, 0, 0.05);
+  --hover-bg-dark: rgba(255, 255, 255, 0.05);
+  --active-bg-light: #000;
+  --active-bg-dark: #fff;
+  --active-text-light: #fff;
+  --active-text-dark: #000;
+}
+
 .nav {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 1000;
-  background: rgba(255, 255, 255, 0.98);
+  background: rgba(0, 0, 0, 0.95);
   backdrop-filter: blur(10px);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .nav.scrolled {
-  background: rgba(255, 255, 255, 0.98);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.98);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .navContainer {
@@ -29,19 +49,41 @@
 .logo {
   font-size: 1.75rem;
   font-weight: 800;
-  color: #000;
+  color: #fff;
   text-decoration: none;
   letter-spacing: -0.02em;
   transition: all 0.3s ease;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
 }
 
-.logo:hover {
-  transform: translateY(-1px);
+.logoText {
+  background: linear-gradient(45deg, #fff, #a3a3a3);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative;
 }
 
 .logoAccent {
-  color: #000;
+  color: #fff;
   opacity: 0.8;
+  position: relative;
+}
+
+.logoGlow {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+  filter: blur(10px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.logo:hover .logoGlow {
+  opacity: 1;
 }
 
 .navLinks {
@@ -51,13 +93,26 @@
 }
 
 .navLink {
-  color: #333;
+  color: #fff;
   text-decoration: none;
   font-size: 1.1rem;
   font-weight: 500;
   position: relative;
   padding: 0.5rem 0;
   transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.navIcon {
+  opacity: 0.8;
+  transition: all 0.3s ease;
+}
+
+.navLink:hover .navIcon {
+  opacity: 1;
+  transform: translateY(-2px);
 }
 
 .navLink::after {
@@ -67,14 +122,15 @@
   left: 0;
   width: 100%;
   height: 2px;
-  background: #000;
+  background: linear-gradient(90deg, transparent, #fff, transparent);
   transform: scaleX(0);
   transform-origin: right;
   transition: transform 0.3s ease;
 }
 
 .navLink:hover {
-  color: #000;
+  color: #fff;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }
 
 .navLink:hover::after {
@@ -84,30 +140,62 @@
 
 .navLink.active {
   color: #fff;
-  background: #000;
+  background: rgba(255, 255, 255, 0.1);
   border-radius: 8px;
   padding: 0.4em 1.4em;
   font-weight: 700;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   transition: all 0.2s cubic-bezier(.4,0,.2,1);
+  backdrop-filter: blur(5px);
 }
 
 .navLink.active::after {
   display: none;
 }
 
-.mobileMenuButton {
-  display: none;
-  background: none;
-  border: none;
-  color: #000;
-  cursor: pointer;
-  padding: 0.2rem;
-  transition: all 0.3s ease;
+.navActions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
+.githubLink,
+.mobileMenuButton {
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.githubGlow {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+  filter: blur(10px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.githubLink:hover .githubGlow {
+  opacity: 1;
+}
+
+.githubLink:hover,
 .mobileMenuButton:hover {
-  transform: scale(1.1);
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.mobileMenuButton {
+  display: none;
 }
 
 @media (max-width: 768px) {
@@ -116,7 +204,7 @@
   }
 
   .mobileMenuButton {
-    display: block;
+    display: flex;
   }
 
   .navLinks {
@@ -125,7 +213,7 @@
     right: -100%;
     width: 100%;
     height: 100vh;
-    background: rgba(255, 255, 255, 0.98);
+    background: rgba(0, 0, 0, 0.98);
     backdrop-filter: blur(10px);
     flex-direction: column;
     justify-content: center;
@@ -142,6 +230,7 @@
     font-size: 1.2rem;
     width: 100%;
     text-align: center;
+    justify-content: center;
   }
 
   .navLink::after {

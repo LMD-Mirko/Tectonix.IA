@@ -157,13 +157,13 @@ function Estadistica() {
     datasets: [{
       label: "Sismos por Mes en Perú",
       data: Object.values(datosPorMes),
-      borderColor: "#1a1a1a",
-      backgroundColor: "rgba(26, 26, 26, 0.1)",
+      borderColor: "#E63946",
+      backgroundColor: "rgba(230, 57, 70, 0.1)",
       tension: 0.4,
-      pointBackgroundColor: "#1a1a1a",
+      pointBackgroundColor: "#E63946",
       pointBorderColor: "#ffffff",
       pointHoverBackgroundColor: "#ffffff",
-      pointHoverBorderColor: "#1a1a1a"
+      pointHoverBorderColor: "#E63946"
     }],
   };
 
@@ -173,18 +173,14 @@ const barChartData = {
     label: "Sismos por Región en Perú",
     data: Object.values(datosPorRegion),
     backgroundColor: [
-      "rgba(26, 26, 26, 0.8)",     // Negro puro
-      "rgba(51, 51, 51, 0.8)",     // Gris muy oscuro
-      "rgba(102, 102, 102, 0.8)",  // Gris oscuro
-      "rgba(153, 153, 153, 0.8)",  // Gris medio
-      "rgba(204, 204, 204, 0.8)",  // Gris claro
+      "rgba(230, 57, 70, 0.7)",    // Rojo mate para Costa
+      "rgba(255, 183, 77, 0.7)",   // Amarillo mate para Sierra
+      "rgba(72, 187, 120, 0.7)",   // Verde mate para Selva
     ],
     borderColor: [
-      "rgba(26, 26, 26, 1)",
-      "rgba(51, 51, 51, 1)",
-      "rgba(102, 102, 102, 1)",
-      "rgba(153, 153, 153, 1)",
-      "rgba(204, 204, 204, 1)",
+      "rgba(230, 57, 70, 1)",
+      "rgba(255, 183, 77, 1)",
+      "rgba(72, 187, 120, 1)",
     ],
     borderWidth: 1
   }],
@@ -195,18 +191,16 @@ const pieChartData = {
   datasets: [{
     data: Object.values(datosPorIntensidad),
     backgroundColor: [
-      "rgba(26, 26, 26, 0.8)",     // Negro puro
-      "rgba(51, 51, 51, 0.8)",     // Gris muy oscuro
-      "rgba(102, 102, 102, 0.8)",  // Gris oscuro
-      "rgba(153, 153, 153, 0.8)",  // Gris medio
-      "rgba(204, 204, 204, 0.8)",  // Gris claro
+      "rgba(72, 187, 120, 0.7)",   // Verde mate para Leve
+      "rgba(255, 183, 77, 0.7)",   // Amarillo mate para Moderado
+      "rgba(230, 57, 70, 0.7)",    // Rojo mate para Fuerte
+      "rgba(45, 55, 72, 0.7)",     // Negro mate para Severo
     ],
     borderColor: [
-      "rgba(26, 26, 26, 1)",
-      "rgba(51, 51, 51, 1)",
-      "rgba(102, 102, 102, 1)",
-      "rgba(153, 153, 153, 1)",
-      "rgba(204, 204, 204, 1)",
+      "rgba(72, 187, 120, 1)",
+      "rgba(255, 183, 77, 1)",
+      "rgba(230, 57, 70, 1)",
+      "rgba(45, 55, 72, 1)",
     ],
     borderWidth: 1
   }],
@@ -217,16 +211,14 @@ const doughnutChartData = {
   datasets: [{
     data: Object.values(datosPorProfundidad),
     backgroundColor: [
-      "rgba(26, 26, 26, 0.8)",     // Negro puro
-      "rgba(51, 51, 51, 0.8)",     // Gris muy oscuro
-      "rgba(102, 102, 102, 0.8)",  // Gris oscuro
-      "rgba(153, 153, 153, 0.8)",  // Gris medio
+      "rgba(72, 187, 120, 0.7)",   // Verde mate para Superficial
+      "rgba(255, 183, 77, 0.7)",   // Amarillo mate para Intermedio
+      "rgba(45, 55, 72, 0.7)",     // Negro mate para Profundo
     ],
     borderColor: [
-      "rgba(26, 26, 26, 1)",
-      "rgba(51, 51, 51, 1)",
-      "rgba(102, 102, 102, 1)",
-      "rgba(153, 153, 153, 1)",
+      "rgba(72, 187, 120, 1)",
+      "rgba(255, 183, 77, 1)",
+      "rgba(45, 55, 72, 1)",
     ],
     borderWidth: 1
   }],
@@ -242,13 +234,13 @@ const doughnutChartData = {
         sismos.reduce((acc, sismo) => acc + sismo.properties.mag, 0) / sismos.length,
         sismos.length
       ],
-      backgroundColor: "rgba(26, 26, 26, 0.2)",
-      borderColor: "#1a1a1a",
+      backgroundColor: "rgba(230, 57, 70, 0.2)",
+      borderColor: "#E63946",
       borderWidth: 2,
-      pointBackgroundColor: "#1a1a1a",
+      pointBackgroundColor: "#E63946",
       pointBorderColor: "#ffffff",
       pointHoverBackgroundColor: "#ffffff",
-      pointHoverBorderColor: "#1a1a1a"
+      pointHoverBorderColor: "#E63946"
     }],
   };
 
@@ -258,16 +250,14 @@ const doughnutChartData = {
       label: "Distribución Sísmica en Perú",
       data: Object.values(datosPorRegion),
       backgroundColor: [
-        "rgba(26, 26, 26, 0.8)",     // Negro puro
-        "rgba(51, 51, 51, 0.8)",     // Gris muy oscuro
-        "rgba(102, 102, 102, 0.8)",  // Gris oscuro
-        "rgba(153, 153, 153, 0.8)",  // Gris medio
+        "rgba(230, 57, 70, 0.7)",    // Rojo mate para Costa
+        "rgba(255, 183, 77, 0.7)",   // Amarillo mate para Sierra
+        "rgba(72, 187, 120, 0.7)",   // Verde mate para Selva
       ],
       borderColor: [
-        "rgba(26, 26, 26, 1)",
-        "rgba(51, 51, 51, 1)",
-        "rgba(102, 102, 102, 1)",
-        "rgba(153, 153, 153, 1)",
+        "rgba(230, 57, 70, 1)",
+        "rgba(255, 183, 77, 1)",
+        "rgba(72, 187, 120, 1)",
       ],
       borderWidth: 1
     }],

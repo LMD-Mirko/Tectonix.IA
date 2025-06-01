@@ -76,11 +76,11 @@ const Mapa = () => {
   };
 
   const obtenerColorPorMagnitud = (magnitud) => {
-    if (magnitud < 4.0) return '#000000';
-    if (magnitud < 5.0) return '#333333';
-    if (magnitud < 6.0) return '#666666';
-    if (magnitud < 7.0) return '#999999';
-    return '#cccccc';
+    if (magnitud < 4.0) return '#48BB78';  // Verde mate
+    if (magnitud < 5.0) return '#FFB74D';  // Amarillo mate
+    if (magnitud < 6.0) return '#E63946';  // Rojo mate
+    if (magnitud < 7.0) return '#2D3748';  // Negro mate
+    return '#1A202C';                      // Negro mate más oscuro
   };
 
   const obtenerRadioPorMagnitud = (magnitud) => {
@@ -210,23 +210,23 @@ const Mapa = () => {
                 <div className={styles.leyenda}>
                   <h3>Leyenda</h3>
                   <div className={styles.elementoLeyenda}>
-                    <div className={styles.colorLeyenda} style={{ backgroundColor: '#000000' }}></div>
+                    <div className={styles.colorLeyenda} style={{ backgroundColor: '#48BB78' }}></div>
                     <span>M &lt; 4.0</span>
                   </div>
                   <div className={styles.elementoLeyenda}>
-                    <div className={styles.colorLeyenda} style={{ backgroundColor: '#333333' }}></div>
+                    <div className={styles.colorLeyenda} style={{ backgroundColor: '#FFB74D' }}></div>
                     <span>4.0 - 4.9</span>
                   </div>
                   <div className={styles.elementoLeyenda}>
-                    <div className={styles.colorLeyenda} style={{ backgroundColor: '#666666' }}></div>
+                    <div className={styles.colorLeyenda} style={{ backgroundColor: '#E63946' }}></div>
                     <span>5.0 - 5.9</span>
                   </div>
                   <div className={styles.elementoLeyenda}>
-                    <div className={styles.colorLeyenda} style={{ backgroundColor: '#999999' }}></div>
+                    <div className={styles.colorLeyenda} style={{ backgroundColor: '#2D3748' }}></div>
                     <span>6.0 - 6.9</span>
                   </div>
                   <div className={styles.elementoLeyenda}>
-                    <div className={styles.colorLeyenda} style={{ backgroundColor: '#cccccc' }}></div>
+                    <div className={styles.colorLeyenda} style={{ backgroundColor: '#1A202C' }}></div>
                     <span>M ≥ 7.0</span>
                   </div>
                 </div>
