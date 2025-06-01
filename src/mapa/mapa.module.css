@@ -12,10 +12,10 @@
 }
 
 .encabezado {
-  margin-top: 65px;
+  margin-top: 60px;
   text-align: center;
   margin-bottom: 2rem;
-  padding: 2rem;
+  padding: 0.5rem;
   background: rgba(31, 31, 31, 0.8);
   border-radius: 16px;
   box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.3);
@@ -23,9 +23,9 @@
 }
 
 .encabezado h1 {
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: 700;
-  margin-bottom: 1rem;
+  margin-bottom: 0rem;
   background: linear-gradient(45deg, #ffffff, #cccccc);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -33,7 +33,7 @@
 }
 
 .encabezado p {
-  font-size: 1.2rem;
+  font-size: 1rem;
   color: #cccccc;
 }
 
@@ -105,7 +105,7 @@
 
 .contenedorMapa {
   position: relative;
-  height: 100%;
+  height: 95%;
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.3);

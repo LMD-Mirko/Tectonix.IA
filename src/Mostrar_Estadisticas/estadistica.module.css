@@ -22,7 +22,7 @@ body {
   margin-top: 65px;
   text-align: center;
   margin-bottom: 2rem;
-  padding: 2rem;
+  padding: 1rem;
   background: rgba(31, 31, 31, 0.8);
   border-radius: 16px;
   box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.3);
@@ -60,14 +60,14 @@ body {
 
 .filtros {
   background: rgba(31, 31, 31, 0.8);
-  padding: 2rem;
+  padding: 1rem;
   border-radius: 16px;
   box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.3);
   border: 1px solid #7c7c7c75;
   margin-bottom: 2rem;
   transition: all 0.3s ease;
   display: flex;
-  gap: 1.5rem;
+  gap: 1rem;
   flex-wrap: wrap;
 }
 
@@ -78,7 +78,7 @@ body {
 
 .grupoFiltro {
   flex: 1;
-  min-width: 200px;
+  min-width: 150px;
   margin-bottom: 1.5rem;
 }
 
@@ -100,7 +100,7 @@ body {
 .grupoFiltro input,
 .grupoFiltro select {
   width: 100%;
-  padding: 0.75rem;
+  padding: 0.7rem;
   border: 1px solid #7c7c7c34;
   border-radius: 8px;
   font-size: 0.95rem;

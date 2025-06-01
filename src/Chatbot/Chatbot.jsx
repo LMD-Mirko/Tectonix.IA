@@ -10,7 +10,7 @@ import estilo from './Chatbot.module.css';
 import SeismicBackground from '../movimiento/AnimatedBackground';
 
 // URL de tu API local
-const API_URL = 'http://localhost:3001/api';
+const API_URL = 'https://web-production-dd640.up.railway.app/api';
 
 export default function SismoBot() {
   const [mensajeUsuario, setMensajeUsuario] = useState('');
