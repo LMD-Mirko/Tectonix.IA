@@ -31,7 +31,7 @@
 
 🔗 [🔬 Entrenamiento del Modelo en Google Colab](https://colab.research.google.com/drive/1qehv0kPQXgdB_oDQ1jzsUQLitgMpm71L?usp=sharing)
 
-🌐 [🌍 BaseURL de la API (Railway)](https://web-production-dd640.up.railway.app/api)
+🌐 [🌍 BaseURL de la API (Render)](https://web-production-dd640.up.railway.app/api)
 
 💾 [📦 Repositorio Backend (GitHub)](https://github.com/LMD-Mirko/Tectonix.IA-Model)
 
